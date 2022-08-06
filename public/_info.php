@@ -1,3 +1,8 @@
 <?php
+if (true) {
+
+}
+
+
 phpinfo();
 ?>
