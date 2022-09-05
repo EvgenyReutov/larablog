@@ -16,3 +16,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::view('/template', 'index', ['title' => 'Main Page1']);
+Route::view('/main', 'main');
+Route::view('/user', 'user');
+Route::view('/register', 'register');
+Route::view('/page', 'page');
+
