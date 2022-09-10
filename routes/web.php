@@ -13,6 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', function (){
+
+    return view('main', ['title' => 'Main Page', 'users' => ['John', 'Mary', 'Ivan']]);
+})-> name('main');
+
+Route::get('/user', function (){
+
+    return view('user', ['title' => 'Страница пользователя']);
+})-> name('user');
+
+Route::get('/register', function (){
+
+    return view('register', ['title' => 'Регистрация']);
+})-> name('register');
+
+Route::get('/contacts', function (){
+
+    return view('contacts', ['title' => 'Контакты']);
+})-> name('contacts');
+Route::view('/page', 'page');
+
+
+
+
+
