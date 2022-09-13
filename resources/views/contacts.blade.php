@@ -49,6 +49,5 @@
 @section('head-end')
     @parent
     <link href="/assets/css/starter-template.css" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
 @endsection
 
