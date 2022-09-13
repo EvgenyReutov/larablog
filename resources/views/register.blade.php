@@ -282,7 +282,7 @@
     <link href="/assets/css/form-validation.css" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    @endsection
+@endsection
 
 
 @section('body-end')

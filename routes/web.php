@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,6 +20,24 @@ Route::get('/template', function (){
     return view('index', ['title' => 'Main Page1', 'users' => ['John', 'Mary', 'Ivan']]);
 });
 //Route::view('/template', 'index', ['title' => 'Main Page1', 'users' => ['John', 'Mary', 'Ivan']]);
+
+//*********
+
+Route::get('/qb/', function (){
+
+    $users = DB::table('users')
+        //->where('name', 'LIKE', 'Ryley Gorczany')
+        ->whereBetween('id', [1,5])
+        //->toSql()
+        //->limit(3)->offset(3)
+        ->get()
+    ;
+
+    dump($users);
+
+    return $users;
+});
+
 
 Route::get('/', function (){
 

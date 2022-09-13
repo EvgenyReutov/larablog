@@ -44,7 +44,10 @@
 
 @section('title', $title)
 
-
+@section('head-end')
+    @parent
+    <link href="/assets/css/starter-template.css" rel="stylesheet">
+@endsection
 
 @section('head-end')
     @parent
