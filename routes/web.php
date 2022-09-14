@@ -27,7 +27,8 @@ Route::get('/qb/', function (){
 
     $users = DB::table('users')
         //->where('name', 'LIKE', 'Ryley Gorczany')
-        ->whereBetween('id', [1,5])
+        //->whereBetween('id', [1,5])
+        ->whereRaw('id BETWEEN ? and ?', [1,5])
         //->toSql()
         //->limit(3)->offset(3)
         ->get()
