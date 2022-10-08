@@ -20,7 +20,7 @@ class PostSeeder extends Seeder
             DB::table('posts')->insert([
                'author_id' => $i+1,
                'title'     => 'Post of '.$i,
-               'code' => 'code-'.$i,
+               'slug' => 'code-'.$i,
                'text'      => 'Text of '.$i,
                'status'    => collect(['draft', 'active'])->random(),
            ]);

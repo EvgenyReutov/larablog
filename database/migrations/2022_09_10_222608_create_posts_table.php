@@ -20,7 +20,7 @@ return new class extends Migration
                 ->references('id')
                 ->on('users');
             $table->string('title');
-            $table->string('code', 100)->unique();
+            $table->string('slug', 100)->unique();
             $table->text('text');
 
             $table->string('status')->default('draft');

@@ -16,6 +16,8 @@ class DatabaseSeeder extends Seeder
     {
         (new UsersSeeder())->run();
         $this->call(PostSeeder::class);
+        $this->call(TagsSeeder::class);
+
         // \App\Models\User::factory(10)->create();
 
         // \App\Models\User::factory()->create([
