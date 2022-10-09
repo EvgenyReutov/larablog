@@ -15,10 +15,18 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         (new UsersSeeder())->run();
-        $this->call(PostSeeder::class);
-        $this->call(TagsSeeder::class);
+        $this->call(RolesSeeder::class);
+        //\App\Models\User::factory(10)->create();
+        \App\Models\CommentLike::factory(5)->create();
+        \App\Models\Subscriber::factory(5)->create();
 
-        // \App\Models\User::factory(10)->create();
+        //(new UsersSeeder())->run();
+        //$this->call(PostSeeder::class);
+
+        $this->call(TagsSeeder::class);
+        $this->call(PostTagSeeder::class);
+        $this->call(RoleUserSeeder::class);
+
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

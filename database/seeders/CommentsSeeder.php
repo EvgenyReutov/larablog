@@ -7,7 +7,7 @@ use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
-class PostSeeder extends Seeder
+class CommentsSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -16,14 +16,25 @@ class PostSeeder extends Seeder
      */
     public function run()
     {
+        $j = 0;
         for ($i = 0; $i < 10; $i +=2) {
-            DB::table('posts')->insert([
+            $j++;
+            DB::table('comments')->insert([
                'author_id' => $i+1,
-               'title'     => 'Post of '.$i,
-               'slug' => 'code-'.$i,
-               'text'      => 'Text of '.$i,
-               'status'    => collect(['draft', 'active'])->random(),
+               'post_id' => $j,
+               'text'      => 'comment Text of '.$j,
            ]);
         }
     }
 }
+/*
+$table->foreignId('author_id')
+    ->references('id')
+    ->on('users');
+
+$table->foreignId('post_id')
+    ->references('id')
+    ->on('posts');
+
+$table->string('text');
+*/

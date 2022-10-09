@@ -63,5 +63,72 @@ Route::view('/page', 'page');
 
 //Route::view('/main', 'main');
 
+Route::get('/like/{commentLike}', function(\App\Models\CommentLike $commentLike){
+    //dump($commentLike);
+    dump($commentLike->post);
+    return 'ok';
+});
+Route::get('/post/{id}', function(int $postId){
+    $post =  \App\Models\Post::find($postId);
+    dump($post->commentLikes);
+    dump($post->author);
+    dump($post);
+    return 'ok';
+});
+Route::get('/update-post/{post}', function (\App\Models\Post $post){
+    $post->delete();
+    //$post->text = 'changed text';
+    //$post->save();
+    dump($post);
 
+
+    return 'ok';
+});
+Route::get('/create-post', function (){
+    $post = new \App\Models\Post();
+    $post->title = 'Post title3';
+    $post->author_id = 2;
+    $post->slug = 'test3';
+    $post->text = 'test3';
+    $post->status = \App\Enums\PostStatus::Draft;
+    $post->save();
+
+    /*$postData = request()->only('title', 'author_id', 'slug', 'text');
+    dump($postData);
+    \App\Models\Post::create($postData);*/
+
+
+    return 'ok';
+});
+
+Route::get('/posts', function (){
+    $posts = \App\Models\Post::all();
+    $tags = \App\Models\Tag::all();
+    dump($tags);
+    //$posts = \App\Models\Post::with(['author', 'comments'])->get();
+    //$posts = \App\Models\Post::query()->whereRaw()->join()->where()->select()->get();
+    /*
+
+    $postData = \App\Models\Post::query()
+        ->join('users', 'users.id', '=', 'posts.author_id')
+        ->select('posts.id', 'posts.status', 'users.id as user_id', 'users.name')
+        ->get();
+
+    dd($postData[0]->status);
+
+    foreach ($posts as $post) {
+        dump($post->author->name);
+        //dump($post->comments->map(
+        //    function ($comment){
+        //    return ['text' => $comment->text];
+       //     }
+        //));
+        dump($post->comments->map(fn($comment) => $comment->text));
+
+    }
+
+    dump($posts);
+    */
+    return 'ok';
+});
 

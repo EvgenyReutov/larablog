@@ -13,20 +13,21 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('post_tag', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('post_id')->unsigned();
-            $table->foreign('post_id')
+            $table->unsignedBigInteger('role_id')->unsigned();
+            $table->foreign('role_id')
                 ->references('id')
-                ->on('posts')
+                ->on('roles')
                 ->onDelete('cascade');
 
-            $table->unsignedBigInteger('tag_id')->unsigned();
-            $table->foreign('tag_id')
+            $table->unsignedBigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
                 ->references('id')
-                ->on('tags')
+                ->on('users')
                 ->onDelete('cascade');
 
+            $table->timestamps();
         });
     }
 
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('post_tag');
+        Schema::dropIfExists('role_user');
     }
 };
