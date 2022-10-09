@@ -16,14 +16,12 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
-        for ($i = 0; $i < 10; $i++) {
-            $email = fake()->unique()->email();
-            DB::table('users')->insert([
-                       'name'     => fake()->name,
-                       'email'    => $email,
-                       'password' => Hash::make($email),
-                       'email_verified_at' => fake()->dateTime,
-                   ]);
-        }
+        DB::table('users')->insert([
+               'name'     => 'admin username',
+               'email'    => 'admin@site.local',
+               'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi',//password
+               'email_verified_at' => fake()->dateTime,
+           ]);
+        
     }
 }

@@ -13,20 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('roles', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('author_id')
-                ->references('id')
-                ->on('users');
             $table->string('title');
-            $table->string('slug', 100)->unique();
-            $table->text('text');
-
-            $table->string('status')->default('draft');
-
-
-            $table->timestamps();
+            $table->string('description')->nullable();
         });
     }
 
@@ -37,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('roles');
     }
 };

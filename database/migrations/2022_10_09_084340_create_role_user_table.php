@@ -13,18 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
+        Schema::create('role_user', function (Blueprint $table) {
             $table->id();
-
-            $table->foreignId('author_id')
+            $table->unsignedBigInteger('role_id')->unsigned();
+            $table->foreign('role_id')
                 ->references('id')
-                ->on('users');
-            $table->string('title');
-            $table->string('slug', 100)->unique();
-            $table->text('text');
+                ->on('roles')
+                ->onDelete('cascade');
 
-            $table->string('status')->default('draft');
-
+            $table->unsignedBigInteger('user_id')->unsigned();
+            $table->foreign('user_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -37,6 +38,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('role_user');
     }
 };
