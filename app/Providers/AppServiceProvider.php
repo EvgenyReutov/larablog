@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repo\Post\PostEloquentRepo;
+use App\Repo\Post\PostRepo;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->singleton(PostRepo::class, PostEloquentRepo::class);
     }
 
     /**

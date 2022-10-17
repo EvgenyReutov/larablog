@@ -68,13 +68,32 @@ Route::get('/like/{commentLike}', function(\App\Models\CommentLike $commentLike)
     dump($commentLike->post);
     return 'ok';
 });
-Route::get('/post/{id}', function(int $postId){
-    $post =  \App\Models\Post::find($postId);
-    dump($post->commentLikes);
-    dump($post->author);
-    dump($post);
+
+Route::resource('/post3', \App\Http\Controllers\PostController::class);
+
+Route::get('/calc/{post}/{b?}', fn(\App\Models\Post $post, $x2 = 0) => $post)
+->where(['b' => '[123]']);
+
+
+
+Route::get('/post/status/{status}', function(\App\Enums\PostStatus $status, \App\Repo\Post\PostRepo $postEloquentRepo){
+
+    $data = $postEloquentRepo->getAllByStatus($status);
+
+    dump($data);
     return 'ok';
 });
+
+Route::get('/post/{id}', function(int $postId, \App\Repo\Post\PostRepo $postEloquentRepo)
+{
+
+    $post = $postEloquentRepo->findById($postId);
+    //$post =  \App\Models\Post::find($postId);
+    //dump($post->commentLikes);
+    //dump($post->author);
+    dump($post);
+    return 'ok';
+})->name('post');
 Route::get('/update-post/{post}', function (\App\Models\Post $post){
     $post->delete();
     //$post->text = 'changed text';
@@ -101,7 +120,7 @@ Route::get('/create-post', function (){
     return 'ok';
 });
 
-Route::get('/posts', function (){
+Route::get('/posts2', function (){
     $posts = \App\Models\Post::all();
     $tags = \App\Models\Tag::all();
     dump($tags);
@@ -131,4 +150,6 @@ Route::get('/posts', function (){
     */
     return 'ok';
 });
+
+Route::get('/i', \App\Http\Controllers\PostShow::class);
 
