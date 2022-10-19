@@ -6,6 +6,7 @@ use App\Models\Post;
 use App\Repo\Post\PostRepo;
 use App\Repo\Post\PostEloquentRepo;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Route;
 
 class PostController extends Controller
 {
@@ -43,14 +44,29 @@ class PostController extends Controller
         //
     }
 
+    public function withoutRepo(Post $post)
+    {
+        //$post = $postEloquentRepo->findById($postId);
+        dd(Route::current());
+        dump($post);
+        return '';
+    }
+
     /**
      * Display the specified resource.
      *
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
+    /*public function show(int $postId, PostRepo $postEloquentRepo)
+    {
+        $post = $postEloquentRepo->findById($postId);
+        dump($post);
+        return '';
+    }*/
     public function show(Post $post)
     {
+        dd($post);
         return view('posts.show', compact('post'));
     }
 

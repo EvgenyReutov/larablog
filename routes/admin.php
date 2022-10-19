@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
-Route::match([\Illuminate\Http\Request::METHOD_POST, \Illuminate\Http\Request::METHOD_GET],'/test', fn() => 'admin');
+Route::match([\Illuminate\Http\Request::METHOD_POST, \Illuminate\Http\Request::METHOD_GET],'/test', fn() => 'admin')
+->name('test');
 
 Route::get('/111', function (){
 

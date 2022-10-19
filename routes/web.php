@@ -69,12 +69,40 @@ Route::get('/like/{commentLike}', function(\App\Models\CommentLike $commentLike)
     return 'ok';
 });
 
+
+/*Route::controller(\App\Http\Controllers\PostController::class)->group(function (){
+    Route::get('/post/{id}', 'show')->name('post');
+});*/
+
+Route::prefix('gg')->group(function(){
+    Route::controller(\App\Http\Controllers\PostController::class)->group(function (){
+        Route::get('/post/{id}', 'show')->name('post');
+    });
+});
+
+Route::resource('/data/profile/posts', \App\Http\Controllers\PostController::class)
+->except('destroy', 'store');
+
 Route::resource('/post3', \App\Http\Controllers\PostController::class);
+
+Route::get('/pp/{post}', [\App\Http\Controllers\PostController::class, 'withoutRepo'])
+->missing(function (){
+    //return redirect('/');
+    return response('not found');
+});
+//Route::get('/pp/{post:author_id}', [\App\Http\Controllers\PostController::class, 'withoutRepo']);
+
 
 Route::get('/calc/{post}/{b?}', fn(\App\Models\Post $post, $x2 = 0) => $post)
 ->where(['b' => '[123]']);
 
+Route::view('/calc/', 'form');
+Route::post('/calculate/', function (\Illuminate\Http\Request $request){
+    $x1 = (int)$request->x1;
+    $x2 = (int)$request->x2;
 
+    return $x1+$x2;
+})->name('calculate');
 
 Route::get('/post/status/{status}', function(\App\Enums\PostStatus $status, \App\Repo\Post\PostRepo $postEloquentRepo){
 
@@ -84,7 +112,7 @@ Route::get('/post/status/{status}', function(\App\Enums\PostStatus $status, \App
     return 'ok';
 });
 
-Route::get('/post/{id}', function(int $postId, \App\Repo\Post\PostRepo $postEloquentRepo)
+/*Route::get('/post/{id}', function(int $postId, \App\Repo\Post\PostRepo $postEloquentRepo)
 {
 
     $post = $postEloquentRepo->findById($postId);
@@ -93,7 +121,8 @@ Route::get('/post/{id}', function(int $postId, \App\Repo\Post\PostRepo $postEloq
     //dump($post->author);
     dump($post);
     return 'ok';
-})->name('post');
+})->name('post');*/
+
 Route::get('/update-post/{post}', function (\App\Models\Post $post){
     $post->delete();
     //$post->text = 'changed text';
@@ -152,4 +181,8 @@ Route::get('/posts2', function (){
 });
 
 Route::get('/i', \App\Http\Controllers\PostShow::class);
+
+Route::fallback(function (){
+    return 'ok fallback';
+});
 

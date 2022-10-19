@@ -40,4 +40,18 @@ class Post extends BaseModel
     {
         return $this->belongsToMany(Tag::class)->using(PostTag::class);
     }
+
+    /*public function resolveRouteBinding($value, $searchParamName = null)
+    {
+        dump($value);
+        dump($searchParamName);
+        return Post::query()->where(
+            $searchParamName ?? $this->getRouteKeyName(),
+            $value)->first();
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'author_id';
+    }*/
 }
