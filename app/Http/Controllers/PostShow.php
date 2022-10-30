@@ -16,7 +16,7 @@ class PostShow extends Controller
      */
     public function __invoke(Request $request)
     {
-        $obj = new PostDTO(1, 'a', PostStatus::Active);
+        $obj = new PostDTO(1, 'a', 'test12', 1, PostStatus::Active);
 
         $res = $obj(1, 'two', true, []);
 

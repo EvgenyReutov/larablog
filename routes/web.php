@@ -83,7 +83,7 @@ Route::prefix('gg')->group(function(){
 Route::resource('/data/profile/posts', \App\Http\Controllers\PostController::class)
 ->except('destroy', 'store');
 
-Route::resource('/post3', \App\Http\Controllers\PostController::class);
+Route::resource('/posts', \App\Http\Controllers\PostController::class);
 
 Route::get('/pp/{post}', [\App\Http\Controllers\PostController::class, 'withoutRepo'])
 ->missing(function (){
@@ -181,6 +181,8 @@ Route::get('/posts2', function (){
 });
 
 Route::get('/i', \App\Http\Controllers\PostShow::class);
+
+Route::get('/csrf', fn () => csrf_token());
 
 Route::fallback(function (){
     return 'ok fallback';
