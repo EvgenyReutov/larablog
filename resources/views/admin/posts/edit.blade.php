@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-    <h2>post create form</h2>
+    <h2>post edit form</h2>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -18,7 +18,7 @@
     @php
         $statuses = ['active' => 'Active', 'draft' => 'Draft'];
     @endphp
-    <form action="{{ route('posts.update', ['post' => $post->id]) }}" method="post">
+    <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="post">
         @csrf
         @method('PUT')
         <p>ID - {{ $post->id }}</p>
@@ -40,10 +40,10 @@
 
         <button class="btn btn-primary">Update</button>
     </form>
-<br><br>
-    <form action="{{ route('posts.destroy', ['post' => $post->id]) }}" method="post">
-    @csrf
-    @method('DELETE')
+    <br><br>
+    <form action="{{ route('admin.posts.destroy', ['post' => $post->id]) }}" method="post">
+        @csrf
+        @method('DELETE')
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
 @endsection

@@ -14,13 +14,13 @@
     @endif
 
     @if (session()->has('alertType'))
-    <div class="alert alert-{{ session('alertType') }}">{{ session('alertText') }}</div>
+        <div class="alert alert-{{ session('alertType') }}">{{ session('alertText') }}</div>
     @endif
 
     @php
-    $statuses = ['active' => 'Active', 'draft' => 'Draft'];
+        $statuses = ['active' => 'Active', 'draft' => 'Draft'];
     @endphp
-    <form action="{{ route('posts.store') }}" method="post">
+    <form action="{{ route('admin.posts.store') }}" method="post">
         @csrf
 
         <p>Title - <input type="text" name="title"  value="{{ old('title') }}"></p>
@@ -31,12 +31,12 @@
             <select name="status" >
                 @foreach($statuses as $value => $status)
                     <option value="{{ $value }}"
-                        @if (old('status', 'draft') === $value)selected @endif
+                            @if (old('status', 'draft') === $value)selected @endif
                     >{{ $status }}</option>
                 @endforeach
 
             </select>
-            </p>
+        </p>
         <p>Text<br><textarea rows="10" cols="80" name="text" required >{{ old('text') }}</textarea></p>
 
         <button>Create</button>

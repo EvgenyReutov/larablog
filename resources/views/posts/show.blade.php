@@ -2,8 +2,7 @@
 
 @section('content')
 
-    <p><a href="{{ route('posts.edit', ['post' => $post->id]) }}">Edit post</p>
-    <br><br>
+   <h2>Post detail page</h2>
 
     <p>ID - {{ $post->id }}</p>
     <p>Title - {{ $post->title }}</p>

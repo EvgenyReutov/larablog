@@ -28,7 +28,7 @@ class PostController extends Controller
     {
         $posts = $postRepo->all();
 
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
         //return view('posts.index', ['posts' => $posts]);
     }
 
@@ -39,7 +39,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        return view('admin.posts.create');
     }
 
     /**
@@ -105,7 +105,7 @@ class PostController extends Controller
     {
         $post = $postEloquentRepo->findById($postId);
         //dd($post);
-        return view('posts.edit', compact('post'));
+        return view('admin.posts.edit', compact('post'));
     }
 
     /**
@@ -153,6 +153,6 @@ class PostController extends Controller
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Post with id {$post->id} was deleted");
         $post->delete();
-        return redirect()->route('posts.create');
+        return redirect()->route('admin.posts.index');
     }
 }

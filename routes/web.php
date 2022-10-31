@@ -80,10 +80,10 @@ Route::prefix('gg')->group(function(){
     });
 });
 
-Route::resource('/data/profile/posts', \App\Http\Controllers\PostController::class)
-->except('destroy', 'store');
+Route::resource('/posts', \App\Http\Controllers\PostController::class)
+->except('destroy', 'store', 'update', 'edit');
 
-Route::resource('/posts', \App\Http\Controllers\PostController::class);
+
 
 Route::get('/pp/{post}', [\App\Http\Controllers\PostController::class, 'withoutRepo'])
 ->missing(function (){
