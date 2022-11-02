@@ -92,6 +92,11 @@ Route::get('/pp/{post}', [\App\Http\Controllers\PostController::class, 'withoutR
 });
 //Route::get('/pp/{post:author_id}', [\App\Http\Controllers\PostController::class, 'withoutRepo']);
 
+Route::get('/int', function (){
+
+
+    return app('myint');
+})->name('myint');
 
 Route::get('/calc/{post}/{b?}', fn(\App\Models\Post $post, $x2 = 0) => $post)
 ->where(['b' => '[123]']);
