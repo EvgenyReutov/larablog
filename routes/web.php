@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -50,10 +51,10 @@ Route::get('/user', function (){
     return view('user', ['title' => 'Страница пользователя']);
 })-> name('user');
 
-Route::get('/register', function (){
+/*Route::get('/register', function (){
 
     return view('register', ['title' => 'Регистрация']);
-})-> name('register');
+})-> name('register');*/
 
 Route::get('/contacts', function (){
 
@@ -193,3 +194,7 @@ Route::fallback(function (){
     return 'ok fallback';
 });
 
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
