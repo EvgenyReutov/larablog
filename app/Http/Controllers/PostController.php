@@ -10,6 +10,7 @@ use App\Repo\Post\PostRepo;
 use App\Repo\Post\PostEloquentRepo;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -39,7 +40,13 @@ class PostController extends Controller
      */
     public function create()
     {
+        if (Gate::denies('admin.posts.create')) {
+            abort(403, 'You can not create new posts');
+
+        }
         return view('admin.posts.create');
+
+
     }
 
     /**
@@ -50,6 +57,10 @@ class PostController extends Controller
      */
     public function store(PostStoreRequest $postStoreRequest, PostService $postService)
     {
+        if (Gate::denies('admin.posts.create')) {
+            abort(403, 'You can not create new posts');
+
+        }
         //dd($request->all());
 
         /*if (empty($request->get('title'))) {

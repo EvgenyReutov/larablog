@@ -42,7 +42,7 @@ Route::get('/qb/', function (){
 
 
 Route::get('/', function (){
-
+    //dd(Auth::check());
     return view('main', ['title' => 'Main Page', 'users' => ['John', 'Mary', 'Ivan']]);
 })-> name('main');
 
@@ -82,7 +82,7 @@ Route::prefix('gg')->group(function(){
 });
 
 Route::resource('/posts', \App\Http\Controllers\PostController::class)
-->except('destroy', 'store', 'update', 'edit');
+->except('destroy', 'store', 'update', 'edit', 'create');
 
 
 
@@ -155,36 +155,25 @@ Route::get('/create-post', function (){
     return 'ok';
 });
 
-Route::get('/posts2', function (){
-    $posts = \App\Models\Post::all();
-    $tags = \App\Models\Tag::all();
-    dump($tags);
-    //$posts = \App\Models\Post::with(['author', 'comments'])->get();
-    //$posts = \App\Models\Post::query()->whereRaw()->join()->where()->select()->get();
-    /*
-
-    $postData = \App\Models\Post::query()
-        ->join('users', 'users.id', '=', 'posts.author_id')
-        ->select('posts.id', 'posts.status', 'users.id as user_id', 'users.name')
-        ->get();
-
-    dd($postData[0]->status);
-
-    foreach ($posts as $post) {
-        dump($post->author->name);
-        //dump($post->comments->map(
-        //    function ($comment){
-        //    return ['text' => $comment->text];
-       //     }
-        //));
-        dump($post->comments->map(fn($comment) => $comment->text));
-
+Route::get('/r', function (){
+    if (\Illuminate\Support\Facades\Gate::allows(\App\Providers\AuthServiceProvider::ADMINS)) {
+        dump(Route::current());
+        dd(\route('qqq'));
+    } else {
+        return 403;
     }
 
-    dump($posts);
-    */
+
     return 'ok';
-});
+})->name('qqq')->middleware('auth');
+
+/*Route::get('/r')->setAction([
+    'uses' => function() {
+        dump(Route::current());
+        dd(\route('qqq'));
+    },
+    'http'
+])->name('qqq')->middleware('auth');*/
 
 Route::get('/i', \App\Http\Controllers\PostShow::class);
 
@@ -197,4 +186,6 @@ Route::fallback(function (){
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])
+    ->middleware('auth')
+    ->name('admin_home');

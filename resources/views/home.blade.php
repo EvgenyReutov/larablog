@@ -15,6 +15,11 @@
                     @endif
 
                     {{ __('You are logged in!') }}
+                    <ul>
+                        <li>
+                            <a href="{{ route('admin.posts.index') }}">posts management</a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
