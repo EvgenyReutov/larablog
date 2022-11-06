@@ -19,6 +19,9 @@
                         <li>
                             <a href="{{ route('admin.posts.index') }}">posts management</a>
                         </li>
+                        <li>
+                            <a href="{{ route('admin.tags.index') }}">tags management</a>
+                        </li>
                     </ul>
                 </div>
             </div>

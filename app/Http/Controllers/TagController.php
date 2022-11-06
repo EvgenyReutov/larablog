@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\DTO\PostDTO;
 use App\Models\Tag;
+use App\Providers\AuthServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
 class TagController extends Controller
@@ -16,6 +18,9 @@ class TagController extends Controller
      */
     public function index()
     {
+        Gate::authorize(AuthServiceProvider::ADMINS);
+
+
         $items = Tag::all();
 
         return view('admin.tags.index', ['items' => $items]);
@@ -28,6 +33,7 @@ class TagController extends Controller
      */
     public function create()
     {
+        Gate::authorize(AuthServiceProvider::ADMINS);
         return view('admin.tags.create');
     }
 
@@ -39,7 +45,8 @@ class TagController extends Controller
      */
     public function store(Request $request)
     {
-       $tag = Tag::create($request->only([
+        Gate::authorize(AuthServiceProvider::ADMINS);
+        $tag = Tag::create($request->only([
             'title'
         ]));
 
@@ -67,6 +74,7 @@ class TagController extends Controller
      */
     public function edit(Tag $tag)
     {
+        Gate::authorize(AuthServiceProvider::ADMINS);
         //$tag = $tagEloquentRepo->findById($tagId);
         //dd($tag);
         return view('admin.tags.edit', compact('tag'));
@@ -81,6 +89,7 @@ class TagController extends Controller
      */
     public function update(Request $request, Tag $tag)
     {
+        Gate::authorize(AuthServiceProvider::ADMINS);
         $tag->update($request->only([
             'title'
         ]));
@@ -98,6 +107,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
+        Gate::authorize(AuthServiceProvider::ADMINS);
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Tag with id {$tag->id} was deleted");
         $tag->delete();
