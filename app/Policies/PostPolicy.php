@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Gate;
 
 class PostPolicy
 {
@@ -18,6 +19,8 @@ class PostPolicy
      */
     public function viewAny(User $user)
     {
+        //dd($user);
+        return true;
         return false;
     }
 
@@ -30,7 +33,7 @@ class PostPolicy
      */
     public function view(User $user, Post $post)
     {
-        //
+        return true;
     }
 
     /**
@@ -41,7 +44,8 @@ class PostPolicy
      */
     public function create(User $user)
     {
-        //
+        return Gate::authorize('admin.posts.create');
+        //return false;
     }
 
     /**
@@ -53,7 +57,10 @@ class PostPolicy
      */
     public function update(User $user, Post $post)
     {
-        //
+        dd($user->id, $post->author_id, $post->author->id);
+        dd($user->id);
+        return true;
+        //return $user->id === $post->author_id;
     }
 
     /**

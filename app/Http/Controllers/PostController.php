@@ -6,10 +6,12 @@ use App\DTO\PostDTO;
 use App\Enums\PostStatus;
 use App\Http\Requests\Post\PostStoreRequest;
 use App\Models\Post;
+use App\Models\User;
 use App\Repo\Post\PostRepo;
 use App\Repo\Post\PostEloquentRepo;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -17,7 +19,7 @@ use Illuminate\Support\Facades\Session;
 class PostController extends Controller
 {
     public function __construct(public PostRepo $postEloquentRepo) {
-
+        $this->authorizeResource(Post::class, 'post');
     }
 
     /**
@@ -27,6 +29,8 @@ class PostController extends Controller
      */
     public function index(PostRepo $postRepo)
     {
+        //$this->authorize('viewAny', Post::class);
+        //dd($postRepo);
         $posts = $postRepo->all();
 
         return view('admin.posts.index', compact('posts'));
@@ -40,6 +44,12 @@ class PostController extends Controller
      */
     public function create()
     {
+        //Gate::authorize('admin.post.create');//gage
+        //$this->authorize('create', Post::class);//policy
+        /*if (Auth::user()->cannot('create', Post::class)) {
+            abort(403, 'This user can not create new posts');
+        }*/
+
         if (Gate::denies('admin.posts.create')) {
             abort(403, 'You can not create new posts');
 
@@ -128,6 +138,7 @@ class PostController extends Controller
      */
     public function update(PostStoreRequest $postStoreRequest, Post $post, PostService $postService)
     {
+        $this->authorize('update', Post::class);
         /*if (empty($request->get('title'))) {
             Session::flash('alertText', 'title error');
             Session::flash('alertType', 'danger');
