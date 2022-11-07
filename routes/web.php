@@ -186,6 +186,4 @@ Route::fallback(function (){
 
 Auth::routes();
 
-Route::get('/admin', [App\Http\Controllers\HomeController::class, 'index'])
-    ->middleware('auth')
-    ->name('admin_home');
+

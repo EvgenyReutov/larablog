@@ -4,8 +4,10 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use App\Policies\PostPolicy;
+use App\Policies\TagPolicy;
 use Illuminate\Auth\AuthManager;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -24,6 +26,7 @@ class AuthServiceProvider extends ServiceProvider
          //'App\Models\Model' => 'App\Policies\ModelPolicy',
         // 'App\Models\Post' => 'App\Policies\PostPolicy',
         Post::class => PostPolicy::class,
+        Tag::class => TagPolicy::class,
     ];
 
     /**
