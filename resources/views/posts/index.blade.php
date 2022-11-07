@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h2><a href="{{ route('posts.create') }}">create post</a> </h2>
+    <h2>Posts list</a> </h2>
 
 
     <ul>

@@ -36,9 +36,15 @@ Route::get('/contacts', function (){
 Route::view('/page', 'page');
 
 Route::resource('/posts', \App\Http\Controllers\PostController::class)
-    ->except('destroy', 'store', 'update', 'edit');
+->except('destroy', 'store', 'update', 'edit', 'create');
 
 
 
+
+
+
+Auth::routes();
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 

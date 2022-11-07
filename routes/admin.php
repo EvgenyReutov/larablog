@@ -3,7 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
-Route::resource('/posts', \App\Http\Controllers\PostController::class);
 
-Route::resource('/tags', \App\Http\Controllers\TagController::class);
 
+Route::resource('/tags', \App\Http\Controllers\Admin\AdminTagController::class);
+
+Route::resource('/posts', \App\Http\Controllers\Admin\AdminPostController::class)
+    //->middleware('auth')
+;
+
+Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])
+    //->middleware('auth')
+    ->name('admin_home');

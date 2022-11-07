@@ -63,7 +63,7 @@
     <!-- Custom styles for this template -->
     <link href="https://fonts.googleapis.com/css?family=Playfair&#43;Display:700,900&amp;display=swap" rel="stylesheet">
     <!-- Custom styles for this template -->
-    @vite(['resources/css/app.css'])
+
 @endsection
 
 
@@ -78,6 +78,4 @@
 
 @endsection
 
-@section('body-end')
-    @vite(['resources/js/app.js'])
-@endsection
+

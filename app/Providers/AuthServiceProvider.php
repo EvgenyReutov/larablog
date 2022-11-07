@@ -3,10 +3,16 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+use App\Models\Post;
+use App\Models\User;
+use App\Policies\PostPolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
+    public const ADMINS = 'admins-only';
+
     /**
      * The model to policy mappings for the application.
      *
@@ -14,6 +20,8 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Post::class => PostPolicy::class,
+
     ];
 
     /**
@@ -25,6 +33,20 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        Gate::define(self::ADMINS, function (User $user) {
+            return $user->email === 'renext@mail.ru';
+        });
+
+
+        Gate::define('admin.posts.create', function (User $user) {
+            return $user->email === 'renext@mail.ru';
+        });
+
+        Gate::define('update', function (User $user) {
+
+            return true;
+            return $user->email === 'renext@mail.ru';
+        });
+
     }
 }

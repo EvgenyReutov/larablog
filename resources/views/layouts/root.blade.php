@@ -13,6 +13,8 @@
 
     <title>@yield('title', config('app.name'))</title>
     @yield('head-end')
+<!-- Scripts -->
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
 @yield('body')
