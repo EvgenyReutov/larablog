@@ -24,7 +24,7 @@ class PostService
         //dump(App::make(NotificationService::class));
         //dd(app(NotificationService::class));
 
-        //$this->notificationService->notify(1, $text);
+        $this->notificationService->notify(1, $text);
         return $post;
     }
 

@@ -186,4 +186,12 @@ Route::fallback(function (){
 
 Auth::routes();
 
-
+Route::get('/json', fn() => [
+    'status' => 'ok',
+    'data' => [
+        'posts' => [
+            ['id' => 1, 'title' => 'post1'],
+            ['id' => 2, 'title' => 'post2'],
+        ]
+    ]
+]);

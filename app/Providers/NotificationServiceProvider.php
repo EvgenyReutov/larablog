@@ -34,7 +34,7 @@ class NotificationServiceProvider extends ServiceProvider
 
         $this->app->when(LogNotificationService::class)
             ->needs('$count')
-            ->give(2);
+            ->give(1);
     }
 
     /**
