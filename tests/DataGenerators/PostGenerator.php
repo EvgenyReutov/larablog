@@ -7,17 +7,15 @@ use App\Models\User;
 
 trait PostGenerator
 {
-    public function generatePosts()
+    public function generatePosts($count = 10)
     {
         $author = User::factory()->create();
         $posts = [];
 
-        for ($i = 0; $i < 10; $i ++) {
+        for ($i = 0; $i < $count; $i ++) {
             $posts[] = Post::factory()->create(['author_id' => $author->id]);
-
-
         }
 
-        return compact('author', 'posts');
+        return compact('posts');
     }
 }

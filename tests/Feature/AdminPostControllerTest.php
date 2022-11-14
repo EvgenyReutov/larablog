@@ -27,8 +27,10 @@ class AdminPostControllerTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $user = $this->generateUser();
-        $this->actingAs($user);
+        //$user = $this->generateUser();
+        //$admin = User::query()->where('email', '=', 'renext@mail.ru')->first();
+        $admin = $this->generateUser(['email' => 'renext@mail.ru']);
+        $this->actingAs($admin);
     }
 
     public static function setUpBeforeClass(): void
@@ -41,7 +43,7 @@ class AdminPostControllerTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_list()
     {
         $data = $this->generatePosts();
 
@@ -67,13 +69,17 @@ class AdminPostControllerTest extends TestCase
 
     }
 
+    /**
+     *
+     * @return void
+     */
     public function test_successfull_post_creation()
     {
         // 1. Arrange
         $author = $this->generateUser();
         $data = [
             'title' => 'new text',
-            'slug' => 'new-slug',
+            'slug' => 'new-slug'.rand(1,1000),
             'text' => 'new text for text',
             'author_id' => $author->id,
             'status' => PostStatus::Active->value,
@@ -106,9 +112,10 @@ class AdminPostControllerTest extends TestCase
             ->assertRedirect(route('admin.posts.create'))
         ;
 
+        $post = Post::first();
+
         $this->assertEquals(1, Post::count());
 
-        $post = Post::first();
         $this->assertEquals($data['title'], $post->title);
         $this->assertEquals($data['slug'], $post->slug);
         $this->assertEquals($data['text'], $post->text);
@@ -184,4 +191,81 @@ class AdminPostControllerTest extends TestCase
         $this->assertEquals(0, Post::count());
 
     }
+
+    /**
+     *
+     * @return void
+     */
+    public function test_successfull_post_update()
+    {
+        // 1. Arrange
+        $data = $this->generatePosts();
+        $post = array_shift($data['posts']);
+        /*dd($post->id);
+        foreach ($data['posts'] as $post) {
+            dd($post->id);
+        }*/
+
+        $author = $this->generateUser();
+
+        $dataUpdate = [
+            'title' => 'new text2',
+            'slug' => 'new-slug2',
+            'text' => 'new text for text2',
+            'author_id' => $author->id,
+            '_method' => 'PUT',
+            'status' => PostStatus::Draft->value,
+        ];
+
+        $response = $this
+            ->from(route('admin.posts.edit', ['post' => $post->id]))
+            //->withSession(['foo' => 'bar'])
+            //->withHeaders(['Accept' => 'application/json'])
+            ->post(route('admin.posts.update', ['post' => $post->id]), $dataUpdate);
+
+        $response->assertValid([
+           'title',
+           'slug',
+           'text',
+           'author_id',
+           'status',
+       ]);
+
+        $response->assertStatus(302)
+            ->assertRedirect(route('admin.posts.edit', ['post' => $post->id]))
+        ;
+
+        $post = Post::query()->where('id', '=',  $post->id)->first();
+
+        $this->assertEquals($dataUpdate['title'], $post->title);
+        $this->assertEquals($dataUpdate['slug'], $post->slug);
+        $this->assertEquals($dataUpdate['text'], $post->text);
+        $this->assertEquals($dataUpdate['status'], $post->status->value);
+        $this->assertEquals($dataUpdate['author_id'], $post->author_id);
+
+    }
+
+    /**
+     *
+     * @return void
+     */
+    public function test_successfull_post_delete()
+    {
+        // 1. Arrange
+        $data = $this->generatePosts(1);
+        $post = array_shift($data['posts']);
+
+        $response = $this
+            ->from(route('admin.posts.edit', ['post' => $post->id]))
+            ->delete(route('admin.posts.destroy', ['post' => $post->id]));
+
+        $response->assertStatus(302)
+            ->assertRedirect(route('admin.posts.index'));
+
+
+        $count = Post::count();
+        $this->assertEquals(0, $count);
+
+    }
+
 }

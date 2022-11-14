@@ -72,7 +72,10 @@ class PostPolicy
      */
     public function delete(User $user, Post $post)
     {
-        return $user->id === $post->author_id;
+        if (Gate::denies(AuthServiceProvider::ADMINS)) {
+            abort(403, 'You can not create new posts');
+        }
+        return true; //$user->id === $post->author_id;
     }
 
     /**

@@ -6,6 +6,7 @@ use App\DTO\PostDTO;
 use App\Http\Controllers\Controller;
 use App\Enums\PostStatus;
 use App\Http\Requests\Post\PostStoreRequest;
+use App\Http\Requests\Post\PostUpdateRequest;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -119,7 +120,7 @@ class AdminPostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(PostStoreRequest $postStoreRequest, Post $post, PostService $postService)
+    public function update(PostUpdateRequest $postUpdateRequest, Post $post, PostService $postService)
     {
         /*if (empty($request->get('title'))) {
             Session::flash('alertText', 'title error');
@@ -136,10 +137,10 @@ class AdminPostController extends Controller
             'slug'
         ]));
         */
-        $authorId = $postStoreRequest->validated('author_id');
+        $authorId = $postUpdateRequest->validated('author_id');
 
 
-        $postService->update($post->id, PostDTO::fromRequest($postStoreRequest));
+        $postService->update($post->id, PostDTO::fromRequest($postUpdateRequest));
 
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Post with id {$post->id} was updated");
