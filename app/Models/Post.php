@@ -13,7 +13,7 @@ class Post extends BaseModel
 
     public $timestamps = true;
 
-    protected $fillable = ['author_id', 'slug', 'title', 'text'];
+    protected $fillable = ['author_id', 'slug', 'title', 'text', 'status'];
     protected $hidden = ['text'];
     protected $casts = [
         'status' => PostStatus::class,
