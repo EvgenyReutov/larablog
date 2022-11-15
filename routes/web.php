@@ -236,3 +236,11 @@ Route::get('/lazy', function () {
 
     return 'ok2';
 });
+
+
+Route::get('/exception', function () {
+
+    throw new \Exception('my_custom_wrong_event');
+
+    return 'ok';
+});

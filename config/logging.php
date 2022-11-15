@@ -120,6 +120,7 @@ return [
 
         'telegram' => [
             'driver' => 'monolog',
+            'level' => env('LOG_LEVEL', 'debug'),
             'handler' => Monolog\Handler\TelegramBotHandler::class,
             'with' => [
                 'apiKey' => env('TELEGRAM_BOT_TOKEN'),

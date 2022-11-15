@@ -47,4 +47,18 @@ class Handler extends ExceptionHandler
             //
         });
     }
+
+    public function report(Throwable $exception) {
+
+        if ($this->shouldReport($exception)) {
+
+            try {
+                \Illuminate\Support\Facades\Log::channel('telegram')->info('hi, exception detected!', compact('exception'));
+            } catch (\Exception $exception) {
+
+            }
+        }
+
+        parent::report($exception);
+    }
 }
