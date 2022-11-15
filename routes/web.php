@@ -195,3 +195,44 @@ Route::get('/json', fn() => [
         ]
     ]
 ]);
+
+
+Route::get('/log', function () {
+
+    $userId = 3;
+    $request = request();
+    \Illuminate\Support\Facades\Log::channel('syslog')->emergency('user logged in', compact('userId', 'request'));
+    //\Illuminate\Support\Facades\Log::info('user logged in', compact('userId', 'request'));
+
+    return 'ok1';
+});
+
+
+Route::get('/collect', function () {
+
+    \App\Models\User::factory(5)->make()
+        ->dump()
+        ->filter(fn($u) => $u->age > 25)
+        ->dump()
+        ->map(fn($u) => $u->name)
+        ->dd()
+    ;
+
+    return 'ok1';
+});
+
+Route::get('/lazy', function () {
+
+    ini_set('memory_limit', '2M');
+    var_dump(memory_get_usage());
+    //phpinfo();
+    //$users = \App\Models\User::all();
+
+    //$users = \App\Models\User::Lazy();//->filter(fn ($u) => $u->id % 2 === 0);
+    //$users = \App\Models\User::Lazy()->filter(fn ($u) => $u->id % 2 === 0);
+    $users = \App\Models\User::chunk(100, fn ($u) => $u->map->name);
+    //dump($users->count());
+    dump($users->count());
+
+    return 'ok2';
+});
