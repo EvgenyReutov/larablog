@@ -81,10 +81,16 @@ Route::prefix('gg')->group(function(){
     });
 });
 
-Route::resource('/posts', \App\Http\Controllers\PostController::class)
-->except('destroy', 'store', 'update', 'edit', 'create');
+Route::group(
+    [
+        'prefix' => '{locale}',
+        'where' => ['locale' => '[a-zA-Z]{2}'],
+        'middleware' => 'checkLocale'
+    ],function() {
 
-
+        Route::resource('/posts', \App\Http\Controllers\PostController::class)
+        ->except('destroy', 'store', 'update', 'edit', 'create');
+});
 
 Route::get('/pp/{post}', [\App\Http\Controllers\PostController::class, 'withoutRepo'])
 ->missing(function (){
