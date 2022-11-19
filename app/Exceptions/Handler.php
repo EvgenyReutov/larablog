@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Throwable;
+use \Illuminate\Support\Facades\Log;
 
 class Handler extends ExceptionHandler
 {
@@ -53,7 +54,7 @@ class Handler extends ExceptionHandler
         if ($this->shouldReport($exception)) {
 
             try {
-                \Illuminate\Support\Facades\Log::channel('telegram')->info('hi, exception detected!', compact('exception'));
+                //Log::channel('telegram')->info('hi, exception detected!', compact('exception'));
             } catch (\Exception $exception) {
 
             }

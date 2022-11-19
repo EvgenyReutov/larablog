@@ -244,3 +244,42 @@ Route::get('/exception', function () {
 
     return 'ok';
 });
+
+Route::group(['middleware' => 'auth'], function(){
+    Route::get('/users', [\App\Http\Controllers\UserController::class, 'index'])
+        ->name('users.show')
+        ->middleware(
+            [
+                'age',
+                'checkCountry'
+            ])
+    ;
+    Route::get('/users_ru', [\App\Http\Controllers\UserController::class, 'index'])
+        ->name('users.show_ru')
+        ->middleware(
+            [
+                'age',
+                'checkCountry:renext@mail.ru'
+            ])
+    ;
+
+    Route::get('{locale}/users/{user}', [\App\Http\Controllers\UserController::class, 'show'])
+        ->name('users.show')
+        ->middleware(
+            [
+                //'age',
+                //'checkCountry:renext@mail.ru'
+            ])
+    ;
+
+    Route::get('{locale}/users', [\App\Http\Controllers\UserController::class, 'index'])
+        ->name('users.show_ru')
+        ->middleware(
+            [
+                'checkLocale',
+                'age',
+                'checkCountry:renext@mail.ru'
+            ])
+    ;
+});
+
