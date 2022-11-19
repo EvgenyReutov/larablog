@@ -35,8 +35,17 @@ Route::get('/contacts', function (){
 })-> name('contacts');
 Route::view('/page', 'page');
 
-Route::resource('/posts', \App\Http\Controllers\PostController::class)
-->except('destroy', 'store', 'update', 'edit', 'create');
+Route::group(
+    [
+        'prefix' => '{locale}',
+        'where' => ['locale' => '[a-zA-Z]{2}'],
+        'middleware' => 'checkLocale'
+    ],function() {
+
+    Route::resource('/posts', \App\Http\Controllers\PostController::class)
+        ->except('destroy', 'store', 'update', 'edit', 'create');
+});
+
 
 
 
