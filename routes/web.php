@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Cache;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,7 +111,7 @@ Route::get('/calc/{post}/{b?}', fn(\App\Models\Post $post, $x2 = 0) => $post)
 ->where(['b' => '[123]']);
 
 Route::view('/calc/', 'form');
-Route::post('/calculate/', function (\Illuminate\Http\Request $request){
+Route::post('/calculate/', function (Request $request){
     $x1 = (int)$request->x1;
     $x2 = (int)$request->x2;
 
@@ -216,7 +218,7 @@ Route::get('/log', function () {
 
 Route::get('/collect', function () {
 
-    \App\Models\User::factory(5)->make()
+    User::factory(5)->make()
         ->dump()
         ->filter(fn($u) => $u->age > 25)
         ->dump()
@@ -236,7 +238,7 @@ Route::get('/lazy', function () {
 
     //$users = \App\Models\User::Lazy();//->filter(fn ($u) => $u->id % 2 === 0);
     //$users = \App\Models\User::Lazy()->filter(fn ($u) => $u->id % 2 === 0);
-    $users = \App\Models\User::chunk(100, fn ($u) => $u->map->name);
+    $users = User::chunk(100, fn ($u) => $u->map->name);
     //dump($users->count());
     dump($users->count());
 
@@ -287,5 +289,53 @@ Route::group(['middleware' => 'auth'], function(){
                 'checkCountry:renext@mail.ru'
             ])
     ;
+
+    Route::get('/users_cache', function (Request $request) {
+
+
+        //dump(User::remember(1000)->where('id', '<', '50')->get());
+
+        /*dump(Cache::get('users'));
+
+        Cache::put('users', \App\Models\User::find(1), 200);*/
+        //Cache::put('users2', 11112);
+        //Cache::store('redis')->put('users', 1111);
+        $b = Cache::remember(User::getCacheKey($request->input('user_id',1)), 600, function() use ($request){
+                dump('cache missing');
+                return User::find($request->input('user_id',1));
+            });
+        dump($b);
+        /*$b = Cache::tags('users')
+            ->remember(User::getCacheKey($request->input('user_id',1)), 600, function() use ($request){
+            return User::find($request->input('user_id',1));
+        });
+        dump($b);*/
+        return 'users cahce';
+    });
+
+    Route::get('/users_get', function (Request $request) {
+
+        $b = Cache::tags('users')->get('users_3');
+
+        dump($b);
+        return 'users get cahce 3';
+    });
+
+    Route::get('/users_flush', function (Request $request) {
+
+        $b = Cache::tags('users')->flush();
+
+        dump($b);
+        return 'users cache flush 3';
+    });
+
+    Route::get('/users_change', function (Request $request) {
+
+        $user = User::find(1);
+        $user->name = 'name4';
+        $user->save();
+
+        return 'users change ok';
+    });
 });
 
