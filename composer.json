@@ -13,6 +13,7 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "predis/predis": "^2.0",
+        "renext/lara_ascii": "dev-master",
         "watson/rememberable": "^6.0"
     },
     "require-dev": {
@@ -66,5 +67,15 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../lara_ascii"
+        },
+        {
+            "type": "git",
+            "url": "https://github.com/ilya-nurullin/img2ascii.git"
+        }
+    ]
 }

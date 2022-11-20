@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f6bfd0b6dd1c2a706307cf09a9d897af",
+    "content-hash": "d50f1723377c1e1063dbf51bb0460e70",
     "packages": [
         {
             "name": "arcanedev/log-viewer",
@@ -1030,6 +1030,27 @@
                 }
             ],
             "time": "2022-06-20T21:43:11+00:00"
+        },
+        {
+            "name": "ilya-nurullin/img2ascii",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ilya-nurullin/img2ascii.git",
+                "reference": "70a51f142817a6f4171c1dd9ef13bc1f75aa66ad"
+            },
+            "require": {
+                "ext-gd": "*",
+                "php": ">= 5.3"
+            },
+            "default-branch": true,
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Img2Ascii\\": "src/"
+                }
+            },
+            "time": "2021-09-14T14:55:11+00:00"
         },
         {
             "name": "laravel/framework",
@@ -3093,6 +3114,44 @@
                 }
             ],
             "time": "2022-03-27T21:42:02+00:00"
+        },
+        {
+            "name": "renext/lara_ascii",
+            "version": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": "../lara_ascii",
+                "reference": "3eafbe566f5eb9a4ed1d62661232cbfe2ec122f0"
+            },
+            "require": {
+                "illuminate/http": "^9.19",
+                "illuminate/routing": "^9.19",
+                "illuminate/support": "^9.19",
+                "ilya-nurullin/img2ascii": "dev-master"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Renext\\LaraAscii\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Renext\\LaraAscii\\": "src/"
+                }
+            },
+            "authors": [
+                {
+                    "name": "Evgeny R",
+                    "email": "rennext@gmail.com"
+                }
+            ],
+            "description": "It converts image to ascii symbols",
+            "transport-options": {
+                "relative": true
+            }
         },
         {
             "name": "symfony/console",
@@ -8388,7 +8447,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "renext/lara_ascii": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
