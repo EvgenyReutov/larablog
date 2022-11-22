@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "95b694b18e97667437a84c0f7c711826",
+    "content-hash": "5916ad4e66c3e023f112e703d592cd61",
     "packages": [
         {
             "name": "brick/math",
@@ -2884,6 +2884,56 @@
                 }
             ],
             "time": "2022-03-27T21:42:02+00:00"
+        },
+        {
+            "name": "renext/lara_currency",
+            "version": "dev-main",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/EvgenyReutov/lara_currency.git",
+                "reference": "e8cb21643ef74be73dfc48f7dd5c06092c511372"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/EvgenyReutov/lara_currency/zipball/e8cb21643ef74be73dfc48f7dd5c06092c511372",
+                "reference": "e8cb21643ef74be73dfc48f7dd5c06092c511372",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "^9.19",
+                "illuminate/routing": "^9.19",
+                "illuminate/support": "^9.19"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Renext\\LaraCurrency\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Renext\\LaraCurrency\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Evgeny Reutov",
+                    "email": "rennext@gmail.com"
+                }
+            ],
+            "description": "It shows currency rates",
+            "support": {
+                "issues": "https://github.com/EvgenyReutov/lara_currency/issues",
+                "source": "https://github.com/EvgenyReutov/lara_currency/tree/main"
+            },
+            "time": "2022-11-22T15:08:58+00:00"
         },
         {
             "name": "symfony/console",
@@ -7981,7 +8031,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "renext/lara_currency": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
