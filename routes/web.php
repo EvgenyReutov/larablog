@@ -83,6 +83,7 @@ Route::prefix('gg')->group(function(){
     });
 });
 
+/*
 Route::group(
     [
         'prefix' => '{locale}',
@@ -93,6 +94,11 @@ Route::group(
         Route::resource('/posts', \App\Http\Controllers\PostController::class)
         ->except('destroy', 'store', 'update', 'edit', 'create');
 });
+*/
+
+Route::resource('/posts', \App\Http\Controllers\PostController::class)
+    ->except('destroy', 'store', 'update', 'edit', 'create');
+
 
 Route::get('/pp/{post}', [\App\Http\Controllers\PostController::class, 'withoutRepo'])
 ->missing(function (){
