@@ -14,57 +14,43 @@
 
                 <!-- Right Side Of Navbar -->
                 <ul class="navbar-nav ms-auto">
-                    <!-- Authentication Links -->
-                    @guest
-                        @if (Route::has('login'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                        @endif
+            <!-- Authentication Links -->
+                @guest
+                    @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                    @endif
 
-                        @if (Route::has('register'))
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                            </li>
-                        @endif
-                    @else
-                        <li class="nav-item dropdown">
-                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                {{ Auth::user()->name }}
+                    @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                    @endif
+                @else
+                    <li class="nav-item dropdown">
+                        <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                            {{ Auth::user()->name }}
+                        </a>
+
+                        <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                               onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
                             </a>
 
-                            <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('logout') }}"
-                                   onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                                    {{ __('Logout') }}
-                                </a>
-
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                    @csrf
-                                </form>
-                            </div>
-                        </li>
-                    @endguest
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                @endguest
                 </ul>
             </div>
         </div>
     </header>
 
-    <div class="nav-scroller py-1 mb-2">
-        <nav class="nav d-flex justify-content-between">
-            <a class="p-2 link-secondary" href="#">World</a>
-            <a class="p-2 link-secondary" href="#">U.S.</a>
-            <a class="p-2 link-secondary" href="#">Technology</a>
-            <a class="p-2 link-secondary" href="#">Design</a>
-            <a class="p-2 link-secondary" href="#">Culture</a>
-            <a class="p-2 link-secondary" href="#">Business</a>
-            <a class="p-2 link-secondary" href="#">Politics</a>
-            <a class="p-2 link-secondary" href="#">Opinion</a>
-            <a class="p-2 link-secondary" href="#">Science</a>
-            <a class="p-2 link-secondary" href="#">Health</a>
-            <a class="p-2 link-secondary" href="#">Style</a>
-            <a class="p-2 link-secondary" href="{{ route('contacts') }}">Contacts</a>
-        </nav>
-    </div>
+    @include('blocks.top_menu')
+
 </div>

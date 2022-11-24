@@ -35,6 +35,7 @@ Route::get('/contacts', function (){
 })-> name('contacts');
 Route::view('/page', 'page');
 
+/*
 Route::group(
     [
         'prefix' => '{locale}',
@@ -45,7 +46,9 @@ Route::group(
     Route::resource('/posts', \App\Http\Controllers\PostController::class)
         ->except('destroy', 'store', 'update', 'edit', 'create');
 });
-
+*/
+Route::resource('/posts', \App\Http\Controllers\PostController::class)
+    ->except('destroy', 'store', 'update', 'edit', 'create');
 
 
 
