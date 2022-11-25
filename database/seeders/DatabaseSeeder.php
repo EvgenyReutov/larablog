@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
     {
         (new UsersSeeder())->run();
         $this->call(RolesSeeder::class);
+        $this->call(UserTransactionSeeder::class);
         //\App\Models\User::factory(10)->create();
         \App\Models\CommentLike::factory(5)->create();
         \App\Models\Subscriber::factory(5)->create();

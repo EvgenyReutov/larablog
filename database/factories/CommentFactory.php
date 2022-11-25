@@ -19,8 +19,14 @@ class CommentFactory extends Factory
     public function definition()
     {
         return [
-            'author_id' => User::all()->random(),
-            'text' => $this->faker->paragraph,
+            'author_id' => function() {
+                $user = User::all()->random();
+                if (empty(($user))) {
+                    $user = User::factory();
+                }
+                return $user;
+            },
+            'text' => $this->faker->paragraph(2),
             'post_id' => Post::factory(),
         ];
     }

@@ -1,6 +1,9 @@
 <?php
 
+use App\Jobs\CalcTransactions;
 use App\Models\User;
+use App\Models\UserTransaction;
+use App\Services\TransactionsCalcService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
@@ -345,3 +348,16 @@ Route::group(['middleware' => 'auth'], function(){
     });
 });
 
+Route::get('/calc-tr', function (TransactionsCalcService $transactionsCalcService) {
+
+    //$transactions = UserTransaction::all();
+    $transactionsIds = UserTransaction::all()->map->id->toArray();
+
+    $job = new CalcTransactions($transactionsIds);
+
+    dispatch($job);
+
+    //$res = $transactionsCalcService->calc($transactions);
+
+    return 'scheluled';
+});
