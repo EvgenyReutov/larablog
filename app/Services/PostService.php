@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTO\PostDTO;
+use App\Jobs\HandlePostCreated;
 use App\Models\Post;
 
 class PostService
@@ -10,7 +11,13 @@ class PostService
     public function create(PostDTO $postDTO): Post
     {
         $arr = $postDTO->toEloquentArray();
-        return Post::create($arr);
+
+        $post = Post::create($arr);
+        $job = new HandlePostCreated($post);
+
+        dispatch($job);
+
+        return $post;
     }
 
     public function update(int $postId, PostDTO $postDTO): bool
