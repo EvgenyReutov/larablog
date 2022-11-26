@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\DTO\PostDTO;
+use App\Jobs\HandlePostCreated;
 use App\Models\Post;
 use App\Services\Notification\NotificationService;
 use Illuminate\Support\Facades\App;
@@ -25,6 +26,11 @@ class PostService
         //dd(app(NotificationService::class));
 
         $this->notificationService->notify(1, $text);
+
+        $job = new HandlePostCreated($post);
+
+        dispatch($job);
+
         return $post;
     }
 
