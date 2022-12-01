@@ -361,3 +361,17 @@ Route::get('/calc-tr', function (TransactionsCalcService $transactionsCalcServic
 
     return 'scheluled';
 });
+
+Route::get('/mem', function () {
+    // ...
+    phpinfo();
+    $stats = Cache::getMemcached()->getStats();
+
+    dd($stats);
+    return 'ok';
+
+    return view('tasks', [
+        'tasks' => $tasks,
+        'stats' => array_pop($stats)
+    ]);
+});
