@@ -79,7 +79,7 @@ class RefreshCache extends Command
     {
         $this->counter++;
         $this->bar->advance();
-        Cache::tags('post_list')->flush();
+        Cache::tags('post_list')->flush(); //caching
 
         (new PostEloquentRepo())->all();
     }

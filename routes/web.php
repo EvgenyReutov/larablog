@@ -364,10 +364,85 @@ Route::get('/calc-tr', function (TransactionsCalcService $transactionsCalcServic
 
 Route::get('/mem', function () {
     // ...
-    phpinfo();
-    $stats = Cache::getMemcached()->getStats();
+    //phpinfo();
 
-    dd($stats);
+    /*try
+
+    {
+        $memcached = new Memcached();
+        $memcached->addServer("192.168.160.9", 11211);
+        $response = $memcached->get("sample_key2");
+
+        if($response==true)
+        {
+            echo $response;
+        }
+
+        else
+
+        {
+            echo "Cache is empty";
+            $memcached->set("sample_key2", "Sample data from cache") ;
+        }
+    }
+    catch (exception $e)
+    {
+        echo $e->getMessage();
+    }*/
+
+    if (class_exists('Memcache')) {
+        //$server = '172.25.0.9';
+        $server = '192.168.160.9';
+        $server = '192.168.208.9';
+        if (!empty($_REQUEST['server'])) {
+            $server = $_REQUEST['server'];
+        }
+        $memcache = new Memcache;
+        $isMemcacheAvailable = $memcache->connect($server);
+
+        if ($isMemcacheAvailable) {
+            $aData = $memcache->get('data');
+            echo '<pre>';
+            if ($aData) {
+                echo '<h2>Data from Cache:</h2>';
+                print_r($aData);
+            } else {
+                $aData = array(
+                    'me' => 'you',
+                    'us' => 'them',
+                );
+                echo '<h2>Fresh Data:</h2>';
+                print_r($aData);
+                $memcache->set('data', $aData, 0, 300);
+            }
+            $aData = $memcache->get('data');
+            if ($aData) {
+                echo '<h3>Memcache seem to be working fine!</h3>';
+            } else {
+                echo '<h3>Memcache DOES NOT seem to be working!</h3>';
+            }
+            echo '</pre>';
+        }
+    }
+    if (!$isMemcacheAvailable) {
+        echo 'Memcache not available';
+    }
+
+
+    $xxx = Cache::getStore();
+    dump($xxx);
+    //$store = 'redis';
+    $store = 'memcached';
+    Cache::put('test1', 2);
+    $b = Cache::store($store)->remember('test1', 600, function() use ($store) {
+        dump('cache missing');
+        return Cache::store($store)->get('test1', 555);
+    });
+    dump($b);
+
+    //$stats = Cache::getMemcached()->getStats();
+
+    //dd($stats);
     return 'ok';
 
     return view('tasks', [

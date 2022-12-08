@@ -34,10 +34,14 @@ class PostEloquentRepo implements PostRepo
     public function all(): array
     {
         //$posts = $this->getList();
+        $store = Cache::store()->getStore();
+        dump($store);
         $posts = Cache::tags('post_list')
             ->remember(Post::getCacheKey(), 600, function(){
+                dump('cache miss');
                 return Post::get();
             });
+        dump('from cache');
         return $posts->map(PostDTO::fromModel(...))->all();
     }
 
