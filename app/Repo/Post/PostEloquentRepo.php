@@ -5,6 +5,7 @@ namespace App\Repo\Post;
 use App\DTO\PostDTO;
 use App\Enums\PostStatus;
 use App\Models\Post;
+use Illuminate\Support\Facades\Cache;
 
 class PostEloquentRepo implements PostRepo
 {
@@ -21,7 +22,13 @@ class PostEloquentRepo implements PostRepo
 
     public function all(): array
     {
-        return Post::all()->map(PostDTO::fromModel(...))->all();
+        $posts = Cache::tags('post_list')
+            ->remember(Post::getCacheKey(), 600, function(){
+                return Post::get();
+            });
+
+        return $posts->map(PostDTO::fromModel(...))->all();
+
     }
 
     public function getAllByStatus(PostStatus $status): array

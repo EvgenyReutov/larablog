@@ -40,4 +40,9 @@ class Post extends BaseModel
     {
         return $this->belongsToMany(Tag::class)->using(PostTag::class);
     }
+
+    static function getCacheKey(string $id = ''): string
+    {
+        return 'posts' . ($id ? '_' . $id : '');
+    }
 }

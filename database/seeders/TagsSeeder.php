@@ -22,8 +22,11 @@ class TagsSeeder extends Seeder
         ];
         foreach  ($tags as $tag) {
             $time = fake()->dateTime;
+            $code = strtolower($tag);
+
             DB::table('tags')->insert([
                'title' => $tag,
+               'code' => $code,
                'created_at' => $time,
                'updated_at' => $time,
            ]);

@@ -53,7 +53,7 @@ class Handler extends ExceptionHandler
         if ($this->shouldReport($exception)) {
 
             try {
-                \Illuminate\Support\Facades\Log::channel('telegram')->info('hi, exception detected!', compact('exception'));
+                //\Illuminate\Support\Facades\Log::channel('telegram')->info('hi, exception detected!', compact('exception'));
             } catch (\Exception $exception) {
 
             }
