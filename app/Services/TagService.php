@@ -12,10 +12,10 @@ class TagService
 {
     public function getList(): Collection
     {
-        dump('cache');
+        //dump('cache');
         $list = Cache::store('memcached')->tags('tags')
             ->remember(Tag::getCacheKey(), 600, function(){
-                dump('missced');
+                //dump('missced');
                 return Tag::get();
             });
 
