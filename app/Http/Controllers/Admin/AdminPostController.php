@@ -55,6 +55,7 @@ class AdminPostController extends Controller
      */
     public function store(PostStoreRequest $postStoreRequest, PostService $postService)
     {
+
         //dd($request->all());
 
         /*if (empty($request->get('title'))) {

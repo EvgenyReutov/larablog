@@ -28,7 +28,7 @@ function apiRoutesV1(Router $router) {
     $router->apiResource('posts', PostController::class);
 }
 
-Route::group(['prefix' => 'v1'], apiRoutesV1(...));
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:jwt'], apiRoutesV1(...));
 
 function apiRoutesV2(Router $router) {
     apiRoutesV1($router);

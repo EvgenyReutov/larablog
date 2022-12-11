@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Api;
 
 use App\DTO\PostDTO;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Post\PostStoreRequest;
+use App\Http\Requests\Post\PostUpdateRequest;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\PostsResource;
 use App\Models\Post;
 use App\Repo\Post\PostRepo;
+use App\Services\PostService;
 use Illuminate\Http\Request;
 
 class PostController extends Controller
@@ -33,9 +36,20 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, PostStoreRequest $postStoreRequest, PostService $postService)
     {
-        //
+        $arr = PostDTO::fromRequest($postStoreRequest);
+
+        try {
+            $post = $postService->create($arr);
+            $data['result'] = 'success';
+            $data['postId'] = $post->id;
+        } catch (\Exception $e) {
+            $data['result'] = 'error';
+            $data['message'] = $e->getMessage();
+        }
+
+        return ['data' => $data];
     }
 
     /**
@@ -57,9 +71,18 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostUpdateRequest $postUpdateRequest, Post $post, PostService $postService)
     {
-        //
+        $authorId = $postUpdateRequest->validated('author_id');
+        $result = $postService->update($post->id, PostDTO::fromRequest($postUpdateRequest));
+
+        $data['result'] = 'error';
+        if ($result) {
+            $data['result'] = 'success';
+        }
+
+
+        return ['data' => $data];
     }
 
     /**
@@ -70,6 +93,13 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        try {
+            $post->delete();
+            $data['result'] = 'success';
+        } catch (\Exception $e) {
+            $data['result'] = 'error';
+            $data['message'] = $e->getMessage();
+        }
+        return ['data' => $data];
     }
 }

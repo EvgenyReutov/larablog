@@ -23,7 +23,7 @@ class UserController extends Controller
             ->get();
         dump($users);
         return 'ok';
-        return view('users.index', compact('users'));
+        //return view('users.index', compact('users'));
     }
 
     /**
@@ -64,7 +64,7 @@ class UserController extends Controller
 
 
         return 'user ' . $user->id;
-        return view('users.show', compact('user'))
+        //return view('users.show', compact('user'))
     }
 
     /**
