@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\LoginController;
+use App\Http\Controllers\Api\PostController;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +17,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+//Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//    return $request->user();
+//});
+
+function apiRoutesV1(Router $router) {
+    $router->apiResource('posts', PostController::class);
+}
+
+Route::group(['prefix' => 'v1', 'middleware' => 'auth:jwt'], apiRoutesV1(...));
+
+Route::post('/login', LoginController::class);

@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
+        "php-open-source-saver/jwt-auth": "^2.0",
         "predis/predis": "^2.0",
         "renext/lara_currency": "dev-main"
     },
