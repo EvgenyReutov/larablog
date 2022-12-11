@@ -44,6 +44,10 @@ return [
             'driver' => 'api_token',
             //'provider' => 'users',
         ],
+        'jwt' => [
+            'driver' => 'jwt',
+            'provider' => 'users',
+        ],
     ],
 
     /*
@@ -73,6 +77,7 @@ return [
         //     'driver' => 'database',
         //     'table' => 'users',
         // ],
+        PHPOpenSourceSaver\JWTAuth\Providers\LaravelServiceProvider::class,
     ],
 
     /*

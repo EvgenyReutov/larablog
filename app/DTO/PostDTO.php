@@ -5,9 +5,10 @@ namespace App\DTO;
 use App\Enums\PostStatus;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 
-class PostDTO {
+class PostDTO implements Arrayable {
 
     public function __construct(
         public int|null $id,
@@ -60,4 +61,16 @@ class PostDTO {
     {
         return $args;
     }*/
+
+    public function toArray()
+    {
+        return [
+            'data' => [
+                'id' => $this->id,
+                'title' => $this->title,
+                'status' => $this->status,
+                'author_id' => $this->author->id,
+            ]
+        ];
+    }
 }
