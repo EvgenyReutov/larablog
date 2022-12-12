@@ -31,8 +31,9 @@ class PostController extends Controller
     {
         //$this->authorize('viewAny', Post::class);
         //dd($postRepo);
-        $posts = $postRepo->all();
-
+        //$posts = $postRepo->all();
+        $posts = $postRepo->paginate(10);
+        //$posts = Post::paginate(5);
         return view('posts.index', compact('posts'));
         //return view('posts.index', ['posts' => $posts]);
     }
@@ -42,9 +43,11 @@ class PostController extends Controller
      * Display the specified resource.
      *
      */
-    public function show(int $postId)
+    //public function show(int $postId)
+    public function show(string $slug)
     {
-        $post = $this->postEloquentRepo->findById($postId);
+        //$post = $this->postEloquentRepo->findById($postId);
+        $post = $this->postEloquentRepo->findBy('slug', $slug);
         //dump($post);
         return view('posts.show', compact('post'));
     }/*

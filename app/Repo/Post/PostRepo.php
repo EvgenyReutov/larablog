@@ -13,6 +13,8 @@ interface PostRepo
 
     public function all(): array;
 
+    public function paginate(int $count);
+
     public function getAllByStatus(PostStatus $status): array;
 
     public function getAllActive(): array;

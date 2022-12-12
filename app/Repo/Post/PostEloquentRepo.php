@@ -35,15 +35,30 @@ class PostEloquentRepo implements PostRepo
     {
         //$posts = $this->getList();
         $store = Cache::store()->getStore();
-        //dump($store);
+        dump($store);
+        $posts = Post::get();
+        //dd($posts);
         $posts = Cache::tags('post_list')
-            ->remember(Post::getCacheKey(), 600, function(){
-                //dump('cache miss');
+            ->remember(Post::getCacheKey(), 1, function(){
+                dump('cache miss');
                 return Post::get();
             });
-        //dump('from cache');
+        dump('from cache');
         return $posts->map(PostDTO::fromModel(...))->all();
     }
+
+    public function paginate(int $count)
+    {
+        $posts = Cache::tags('post_list')
+            ->remember(Post::getCacheKey(), 1, function() use ($count) {
+                dump('cache miss');
+                return Post::paginate($count);
+                //return Post::get();
+            });
+
+        return $posts;
+    }
+
 
     public function getAllByStatus(PostStatus $status): array
     {
