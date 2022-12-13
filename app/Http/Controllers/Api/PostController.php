@@ -15,14 +15,16 @@ use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
+    public const PAGE_SIZE = 10;
+
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return PostsResource
      */
-    public function index(PostRepo $postRepo)
+    public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(self::PAGE_SIZE);
 
         return new PostsResource($posts);
     }
@@ -30,8 +32,11 @@ class PostController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  Request  $request
+     * @param  PostStoreRequest  $postStoreRequest
+     * @param  PostService  $postService
+     *
+     * @return array[]
      */
     public function store(Request $request, PostStoreRequest $postStoreRequest, PostService $postService)
     {
@@ -52,24 +57,27 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param  int  $postId
+     *
+     * @return array
      */
-    public function show(Post $post, PostRepo $postRepo)
+    public function show(int $postId)
     {
-        return $postRepo->findById($post->id);
+        $post = Post::findOrFail($postId);
+        return ['data' => $post];
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param  PostUpdateRequest  $postUpdateRequest
+     * @param  Post  $post
+     * @param  PostService  $postService
+     *
+     * @return array[]
      */
     public function update(PostUpdateRequest $postUpdateRequest, Post $post, PostService $postService)
     {
-        $authorId = $postUpdateRequest->validated('author_id');
         $result = $postService->update($post->id, PostDTO::fromRequest($postUpdateRequest));
 
         $data['result'] = 'error';
@@ -77,15 +85,15 @@ class PostController extends Controller
             $data['result'] = 'success';
         }
 
-
         return ['data' => $data];
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Post  $post
-     * @return \Illuminate\Http\Response
+     * @param  Post  $post
+     *
+     * @return array[]
      */
     public function destroy(Post $post)
     {
