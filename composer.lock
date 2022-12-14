@@ -895,16 +895,16 @@
         },
         {
             "name": "laravel/envoy",
-            "version": "v2.8.4",
+            "version": "v2.8.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/envoy.git",
-                "reference": "c44de79e26b041f9870aa0446ba24978a6256af4"
+                "reference": "aa3f39e2bb7ee984db57cd03e406e67d759ebfab"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/envoy/zipball/c44de79e26b041f9870aa0446ba24978a6256af4",
-                "reference": "c44de79e26b041f9870aa0446ba24978a6256af4",
+                "url": "https://api.github.com/repos/laravel/envoy/zipball/aa3f39e2bb7ee984db57cd03e406e67d759ebfab",
+                "reference": "aa3f39e2bb7ee984db57cd03e406e67d759ebfab",
                 "shasum": ""
             },
             "require": {
@@ -951,9 +951,9 @@
             ],
             "support": {
                 "issues": "https://github.com/laravel/envoy/issues",
-                "source": "https://github.com/laravel/envoy/tree/v2.8.4"
+                "source": "https://github.com/laravel/envoy/tree/v2.8.5"
             },
-            "time": "2022-08-23T15:00:22+00:00"
+            "time": "2022-12-13T14:21:43+00:00"
         },
         {
             "name": "laravel/framework",

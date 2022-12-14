@@ -8,6 +8,7 @@
     composer
     npm
     config_project
+    run_tests
     set_current
     releases_clean
 @endstory
@@ -23,6 +24,7 @@
 
     $on = 'main';
     $dirBase = '/home/forge/ereutov.ru';
+    $testEnv = 'testing';
     $dirShared = $dirBase . '/shared';
     $dirCurrent = $dirBase . '/current';
     $dirReleases = $dirBase . '/releases';
@@ -90,4 +92,9 @@
     else
     echo "# No releases found for purging at this time";
     fi
+@endtask
+
+@task('run_tests', ['on' => $on])
+    echo "# Run tests";
+    php artisan test --env={{$testEnv}};
 @endtask
