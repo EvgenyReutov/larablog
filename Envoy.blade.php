@@ -96,5 +96,6 @@
 
 @task('run_tests', ['on' => $on])
     echo "# Run tests";
+    cd {{$dirCurrentRelease}}
     php artisan test --env={{$testEnv}};
 @endtask
