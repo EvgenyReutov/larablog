@@ -70,6 +70,7 @@
     echo "# Linking .env file";
     cd {{$dirCurrentRelease}};
     ln -nfs {{$dirBase}}/.env .env;
+    ln -nfs {{$dirBase}}/.env.testing .env.testing;
 
     echo "# Optimising installation";
     php artisan clear-compiled --env={{$env}};
