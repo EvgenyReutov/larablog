@@ -44,7 +44,7 @@
     echo "# Composer task"
 
     cd {{$dirCurrentRelease}}
-    composer install --no-interaction --quiet --no-dev --prefer-dist --optimize-autoloader
+    composer install --no-interaction --quiet --prefer-dist --optimize-autoloader
 
     echo "# Composer dependencies have been installed"
 @endtask
