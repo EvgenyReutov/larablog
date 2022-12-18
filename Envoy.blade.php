@@ -78,6 +78,7 @@
     php artisan config:cache --env={{$env}};
     php artisan cache:clear --env={{$env}};
     php artisan config:clear --env={{$testEnv}};
+    php artisan route:clear --env={{$testEnv}};
 @endtask
 
 @task('set_current', ['on' => $on])
