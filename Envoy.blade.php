@@ -8,6 +8,7 @@
     composer
     npm
     config_project
+    run_tests
     set_current
     releases_clean
 @endstory
@@ -23,6 +24,7 @@
 
     $on = 'main';
     $dirBase = '/home/forge/ereutov.ru';
+    $testEnv = 'testing';
     $dirShared = $dirBase . '/shared';
     $dirCurrent = $dirBase . '/current';
     $dirReleases = $dirBase . '/releases';
@@ -42,7 +44,7 @@
     echo "# Composer task"
 
     cd {{$dirCurrentRelease}}
-    composer install --no-interaction --quiet --no-dev --prefer-dist --optimize-autoloader
+    composer install --no-interaction --quiet --prefer-dist --optimize-autoloader
 
     echo "# Composer dependencies have been installed"
 @endtask
@@ -68,12 +70,15 @@
     echo "# Linking .env file";
     cd {{$dirCurrentRelease}};
     ln -nfs {{$dirBase}}/.env .env;
+    ln -nfs {{$dirBase}}/.env.testing .env.testing;
 
     echo "# Optimising installation";
     php artisan clear-compiled --env={{$env}};
     php artisan optimize --env={{$env}};
     php artisan config:cache --env={{$env}};
     php artisan cache:clear --env={{$env}};
+    php artisan config:clear --env={{$testEnv}};
+    php artisan route:clear --env={{$testEnv}};
 @endtask
 
 @task('set_current', ['on' => $on])
@@ -90,4 +95,10 @@
     else
     echo "# No releases found for purging at this time";
     fi
+@endtask
+
+@task('run_tests', ['on' => $on])
+    echo "# Run tests";
+    cd {{$dirCurrentRelease}}
+    php artisan test --env={{$testEnv}};
 @endtask
