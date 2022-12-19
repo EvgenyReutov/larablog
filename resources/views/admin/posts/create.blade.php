@@ -19,12 +19,27 @@
 
     @php
         $statuses = ['active' => 'Active', 'draft' => 'Draft'];
+        $tagsIds = old('tags', []);
+
     @endphp
     <form action="{{ route('admin.posts.store') }}" method="post">
         @csrf
 
         <p>Title - <input type="text" name="title"  value="{{ old('title') }}"></p>
         <p>Slug - <input type="text" name="slug"  value="{{ old('slug') }}"></p>
+        <p>
+            Tags:<br>
+            @foreach ($tags as $tag)
+
+                <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+                       @if (in_array($tag->id, $tagsIds))
+                       checked="checked"
+                    @endif
+
+                ><label>{{ $tag->title }}</label><br>
+
+            @endforeach
+        </p>
         <p>Author Id - <input type="number" name="author_id" required value="{{ old('author_id') }}"></p>
 
         <p>Status -
@@ -41,4 +56,7 @@
 
         <button>Create</button>
     </form>
+
+    <br>
+    <a href="{{ route('admin.posts.index') }}">Перейти к списку</a>
 @endsection

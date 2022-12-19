@@ -20,6 +20,10 @@ class PostService
 
         $post = Post::create($arr);
         $text = "User with id = ".$postDTO->author->id." has created a post with id = ".$post->id;
+        if (count($arr['tags'])) {
+            $post->tags()->attach($arr['tags']);
+
+        }
 
         //dump($this->notificationService);
         //dump(App::make(NotificationService::class));

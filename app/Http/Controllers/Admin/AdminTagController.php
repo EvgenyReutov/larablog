@@ -44,9 +44,10 @@ class AdminTagController extends Controller
      */
     public function store(Request $request)
     {
+
         $tag = Tag::create($request->only([
-                                              'title'
-                                          ]));
+              'title', 'code'
+          ]));
 
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Tag with id {$tag->id} was created");
@@ -87,7 +88,7 @@ class AdminTagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         $tag->update($request->only([
-                                        'title'
+                                        'title', 'code'
                                     ]));
 
         Session::flash('alertType', 'success');

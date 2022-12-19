@@ -17,11 +17,26 @@
 
     @php
         $statuses = ['active' => 'Active', 'draft' => 'Draft'];
+        $tagsIds = $post->tags->pluck('tags.id')->toArray();
+
     @endphp
     <form action="{{ route('admin.posts.update', ['post' => $post->id]) }}" method="post">
         @csrf
         @method('PUT')
         <p>ID - {{ $post->id }}</p>
+        <p>
+            Tags:<br>
+        @foreach ($tags as $tag)
+
+            <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
+        @if (in_array($tag->id, $tagsIds))
+            checked="checked"
+        @endif
+
+            ><label>{{ $tag->title }}</label><br>
+
+        @endforeach
+        </p>
         <p>Title - <input type="text" name="title"  value="{{ old('title', $post->title) }}"></p>
         <p>Slug - <input type="text" name="slug"  value="{{ old('slug', $post->slug) }}"></p>
         <p>Author Id - <input type="number" name="author_id" required value="{{ old('author_id', $post->author->id) }}"></p>
@@ -46,4 +61,5 @@
         @method('DELETE')
         <button type="submit" class="btn btn-danger">Delete</button>
     </form>
+    <a href="{{ route('admin.posts.index') }}">Перейти к списку</a>
 @endsection

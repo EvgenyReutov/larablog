@@ -21,7 +21,7 @@
         @csrf
 
         <p>Title - <input type="text" name="title" required value="{{ old('title') }}"></p>
-
+        <p>Code - <input type="text" name="code" required value="{{ old('code') }}"></p>
 
         <button>Create</button>
     </form>

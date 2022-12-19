@@ -13,6 +13,7 @@ class PostEloquentRepo implements PostRepo
     public function findById($id): PostDTO
     {
         $data = Post::find($id);
+
         return PostDTO::fromModel($data);
     }
 

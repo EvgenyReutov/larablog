@@ -16,6 +16,7 @@ class PostDTO implements Arrayable {
         public $slug,
         public string $text,
         public $author,
+        public $tags,
         public PostStatus $status)
     {
 
@@ -30,7 +31,9 @@ class PostDTO implements Arrayable {
     {
         return new static(
             $post->id, $post->title, $post->slug, $post->text,
-            $post->author, $post->status
+            $post->author,
+            $post->tags(),
+            $post->status
         );
     }
 
@@ -40,7 +43,9 @@ class PostDTO implements Arrayable {
 
         return new static(
             null, $request->title, $request->slug, $request->text,
-            $author, PostStatus::from($request->status)
+            $author,
+            $request->tags,
+            PostStatus::from($request->status)
         );
     }
 
@@ -54,6 +59,7 @@ class PostDTO implements Arrayable {
             'author_id' => $this->author->id,
             'author' => $this->author,
             'status' => $this->status,
+            'tags' => $this->tags,
             //'title' => $this->title,
         ];
     }

@@ -20,7 +20,7 @@
         @method('PUT')
         <p>ID - {{ $tag->id }}</p>
         <p>Title - <input type="text" name="title" required value="{{ old('title', $tag->title) }}"></p>
-
+        <p>Code - <input type="text" name="code" required value="{{ old('code', $tag->code) }}"></p>
         <button class="btn btn-primary">Update</button>
     </form>
     <br><br>
