@@ -7,6 +7,10 @@
 
     <h2>{{ __('post_list') }} </h2>
 
+    @if ($tag)
+        <p>Выбранный тег - {{ $tag }}</p>
+    @endif
+
 
     <ul>
         @foreach($posts as $post)

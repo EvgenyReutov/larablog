@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-    <h2>tag edit form</h2>
+    <h2>Отредактировать тэг, ID - {{ $tag->id }}</h2>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -18,12 +18,11 @@
     <form action="{{ route('admin.tags.update', ['tag' => $tag->id]) }}" method="post">
         @csrf
         @method('PUT')
-        <p>ID - {{ $tag->id }}</p>
         <p>Title - <input type="text" name="title" required value="{{ old('title', $tag->title) }}"></p>
         <p>Code - <input type="text" name="code" required value="{{ old('code', $tag->code) }}"></p>
         <button class="btn btn-primary">Update</button>
     </form>
-    <br><br>
+    <br>
     <form action="{{ route('admin.tags.destroy', ['tag' => $tag->id]) }}" method="post">
         @csrf
         @method('DELETE')

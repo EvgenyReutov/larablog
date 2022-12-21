@@ -27,14 +27,14 @@ class PostController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index(PostRepo $postRepo)
+    public function index(PostRepo $postRepo, string $tag = '')
     {
         //$this->authorize('viewAny', Post::class);
         //dd($postRepo);
         //$posts = $postRepo->all();
-        $posts = $postRepo->paginate(10);
+        $posts = $postRepo->paginate(10, $tag);
         //$posts = Post::paginate(5);
-        return view('posts.index', compact('posts'));
+        return view('posts.index', compact('posts', 'tag'));
         //return view('posts.index', ['posts' => $posts]);
     }
 

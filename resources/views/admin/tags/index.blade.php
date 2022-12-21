@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <h2><a href="{{ route('admin.tags.create') }}">create a tag</a> </h2>
+    <h2><a href="{{ route('admin.tags.create') }}">Создать тэг</a></h2>
 <?php
 //
 //

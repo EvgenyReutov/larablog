@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostController;
 use App\Jobs\CalcTransactions;
 use App\Models\User;
 use App\Models\UserTransaction;
@@ -81,7 +82,7 @@ Route::get('/like/{commentLike}', function(\App\Models\CommentLike $commentLike)
 });*/
 
 Route::prefix('gg')->group(function(){
-    Route::controller(\App\Http\Controllers\PostController::class)->group(function (){
+    Route::controller(PostController::class)->group(function (){
         Route::get('/post/{id}', 'show')->name('post');
     });
 });
@@ -99,11 +100,17 @@ Route::group(
 });
 */
 
-Route::resource('/posts', \App\Http\Controllers\PostController::class)
+Route::resource('/posts', PostController::class)
     ->except('destroy', 'store', 'update', 'edit', 'create');
 
+Route::get('/posts/tag/{tag}', [PostController::class, 'index'])
+    ->missing(function (){
+        //return redirect('/');
+        return response('not found');
+    })->name('list_by_tag');
 
-Route::get('/pp/{post}', [\App\Http\Controllers\PostController::class, 'withoutRepo'])
+
+Route::get('/pp/{post}', [PostController::class, 'withoutRepo'])
 ->missing(function (){
     //return redirect('/');
     return response('not found');

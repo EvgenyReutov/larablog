@@ -5,8 +5,8 @@
         @if ($paginator->onFirstPage())
 
             <li class="page-item disabled" >
-                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">
-                &laquo;</a></li>
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">&laquo;</a>
+            </li>
 
         @else
 
@@ -15,9 +15,9 @@
         @endif
         @foreach ($elements as $element)
             @if (is_string($element))
-
-                <li class="page-item disabled"><span>{{ $element }}</span></li>
-
+                <li class="page-item disabled" >
+                    <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><span>{{ $element }}</span></a>
+                </li>
             @endif
             @if (is_array($element))
                 @foreach ($element as $page => $url)

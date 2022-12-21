@@ -92,9 +92,9 @@
 
 
     @include('blocks.main_top')
-
+ <div class="container">
     @yield('content')
-
+ </div>
     @include('blocks.footer')
 
 
