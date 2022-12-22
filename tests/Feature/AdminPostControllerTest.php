@@ -38,6 +38,7 @@ class AdminPostControllerTest extends TestCase
     }
 
     /**
+     * @group test1
      * A basic feature test example.
      *
      * @return void
@@ -69,7 +70,7 @@ class AdminPostControllerTest extends TestCase
     }
 
     /**
-     *
+     * @group test2
      * @return void
      */
     public function test_successfull_post_creation()
@@ -81,6 +82,7 @@ class AdminPostControllerTest extends TestCase
             'slug' => 'new-slug'.rand(1,1000),
             'text' => 'new text for text',
             'author_id' => $author->id,
+            'tags' => [],
             'status' => PostStatus::Active->value,
         ];
 
@@ -124,6 +126,7 @@ class AdminPostControllerTest extends TestCase
             'slug' => 'new-slug',
             'text' => 'new text for text',
             'author_id' => $author->id,
+            'tags' => [],
             'status' => PostStatus::Active->value,
         ];
 
