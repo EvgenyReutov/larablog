@@ -5,8 +5,7 @@ namespace Tests\Feature;
 use App\Enums\PostStatus;
 use App\Models\Post;
 use App\Models\User;
-use App\Services\Notification\LogNotificationService;
-use App\Services\Notification\NotificationService;
+
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Auth;
@@ -85,13 +84,6 @@ class AdminPostControllerTest extends TestCase
             'status' => PostStatus::Active->value,
         ];
 
-        $serviceMock = $this->spy(LogNotificationService::class);
-        /*$this->mock(LogNotificationService::class, function ($service) {
-            $service->shouldReceive('notify')
-                ->andReturn(true)
-                ->once()
-            ;
-        });*/
 
         // 2. Act
         $response = $this
@@ -122,10 +114,6 @@ class AdminPostControllerTest extends TestCase
         $this->assertEquals($data['status'], $post->status->value);
         $this->assertEquals($data['author_id'], $post->author_id);
 
-        $serviceMock->shouldHaveReceived('notify')
-            ->with(1, "User with id = ".$post->author_id." has created a post with id = ".$post->id)
-            ->once()
-            ;
     }
 
     public function test_no_title_post_creation()
