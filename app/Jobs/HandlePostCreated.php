@@ -33,7 +33,7 @@ class HandlePostCreated implements ShouldQueue
     public function handle()
     {
         $postInfo = $this->postInfo;
-        //Log::channel('telegram')->info('hi, post created!', compact('postInfo'));
+        Log::channel('telegram')->info('hi, post created!', compact('postInfo'));
 
     }
 }

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\DTO\PostDTO;
 use App\Models\Tag;
+use App\Providers\AuthServiceProvider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
 
 class TagController extends Controller
@@ -16,10 +18,9 @@ class TagController extends Controller
      */
     public function index()
     {
+
         $items = Tag::all();
 
-        return view('admin.tags.index', ['items' => $items]);
+        return view('tags.index', ['items' => $items]);
     }
-
-
 }

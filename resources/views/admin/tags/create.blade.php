@@ -1,7 +1,7 @@
 @extends('layouts.base')
 
 @section('content')
-    <h2>tag create form</h2>
+    <h2>Создать тэг</h2>
 
     @if ($errors->any())
         <div class="alert alert-danger">

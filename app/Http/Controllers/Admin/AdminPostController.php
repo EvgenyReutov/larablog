@@ -6,13 +6,16 @@ use App\DTO\PostDTO;
 use App\Http\Controllers\Controller;
 use App\Enums\PostStatus;
 use App\Http\Requests\Post\PostStoreRequest;
+use App\Http\Requests\Post\PostUpdateRequest;
 use App\Models\Post;
+use App\Models\Tag;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Repo\Post\PostRepo;
 use App\Repo\Post\PostEloquentRepo;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -32,6 +35,7 @@ class AdminPostController extends Controller
     {
         $posts = $postRepo->all();
 
+
         return view('admin.posts.index', compact('posts'));
         //return view('posts.index', ['posts' => $posts]);
     }
@@ -43,7 +47,9 @@ class AdminPostController extends Controller
      */
     public function create()
     {
-        return view('admin.posts.create');
+        return view('admin.posts.create', [
+            'tags' => Tag::get()
+        ]);
     }
 
     /**
@@ -54,6 +60,7 @@ class AdminPostController extends Controller
      */
     public function store(PostStoreRequest $postStoreRequest, PostService $postService)
     {
+
         //dd($request->all());
 
         /*if (empty($request->get('title'))) {
@@ -62,7 +69,7 @@ class AdminPostController extends Controller
             return redirect()->back()->withInput($request->all());
         }*/
         $arr = PostDTO::fromRequest($postStoreRequest);
-        //dd($arr);
+
         $post = $postService->create($arr);
         /*$post = Post::create($request->only([
             'title', 'text', 'author_id',
@@ -90,8 +97,10 @@ class AdminPostController extends Controller
     public function show(int $postId)
     {
         $post = $this->postEloquentRepo->findById($postId);
+        $tags = Tag::get();
+        //dump($tags);
         //dump($post);
-        return view('posts.show', compact('post'));
+        return view('posts.show', compact('post', 'tags'));
     }/*
     public function show(Post $post)
     {
@@ -109,7 +118,10 @@ class AdminPostController extends Controller
     {
         $post = $postEloquentRepo->findById($postId);
         //dd($post);
-        return view('admin.posts.edit', compact('post'));
+        $tags = Tag::get();
+        //dump($tags);
+        //dd($post);
+        return view('admin.posts.edit', compact('post', 'tags'));
     }
 
     /**
@@ -119,7 +131,7 @@ class AdminPostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(PostStoreRequest $postStoreRequest, Post $post, PostService $postService)
+    public function update(PostUpdateRequest $postUpdateRequest, Post $post, PostService $postService)
     {
         /*if (empty($request->get('title'))) {
             Session::flash('alertText', 'title error');
@@ -136,10 +148,18 @@ class AdminPostController extends Controller
             'slug'
         ]));
         */
-        $authorId = $postStoreRequest->validated('author_id');
+        //dd($postUpdateRequest->input('tags'));
 
+        $authorId = $postUpdateRequest->validated('author_id');
 
-        $postService->update($post->id, PostDTO::fromRequest($postStoreRequest));
+        $post->tags()->detach();
+        if ($postUpdateRequest->input('tags')) {
+            $post->tags()->attach($postUpdateRequest->input('tags'));
+        }
+
+        $postService->update($post->id, PostDTO::fromRequest($postUpdateRequest));
+
+        Cache::tags(['post_list', 'post_list_nav'])->flush();
 
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Post with id {$post->id} was updated");
@@ -154,9 +174,13 @@ class AdminPostController extends Controller
      */
     public function destroy(Post $post)
     {
+        $post->tags()->detach();
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Post with id {$post->id} was deleted");
         $post->delete();
+
+        Cache::tags(['post_list', 'post_list_nav'])->flush();
+
         return redirect()->route('admin.posts.index');
     }
 }

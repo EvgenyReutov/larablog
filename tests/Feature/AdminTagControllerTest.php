@@ -56,16 +56,11 @@ class AdminTagControllerTest extends TestCase
 
     }
 
-    /**
-     *
-     * @return void
-     */
     public function test_successfull_tag_creation()
     {
         // 1. Arrange
         $data = [
-            'title' => 'newtitle',
-            'code' => 'newtitle'
+            'title' => 'newtext',
         ];
 
         // 2. Act
@@ -90,7 +85,7 @@ class AdminTagControllerTest extends TestCase
     }
 
     /**
-     * @group tags1
+     *
      * @return void
      */
     public function test_successfull_tag_update()
@@ -100,8 +95,7 @@ class AdminTagControllerTest extends TestCase
         $tag = array_shift($data['tags']);
 
         $dataUpdate = [
-            'title' => 'newtitle2',
-            'code' => 'newtitle2'
+            'title' => 'new-text2',
         ];
 
         $response = $this
@@ -123,7 +117,7 @@ class AdminTagControllerTest extends TestCase
     }
 
     /**
-     *
+     * 
      * @return void
      */
     public function test_successfull_tag_delete()

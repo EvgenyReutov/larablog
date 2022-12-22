@@ -217,3 +217,8 @@
 @section('title', $title)
 
 
+
+@section('head-end')
+    @parent
+
+@endsection

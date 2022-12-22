@@ -15,9 +15,7 @@ class PostUpdateRequest extends FormRequest
      */
     public function authorize()
     {
-        //return \Auth::user()->role === 'admin';
-        return true;
-        return false;
+        return \Auth::user()->isAdmin();
     }
 
     /**
@@ -27,7 +25,6 @@ class PostUpdateRequest extends FormRequest
      */
     public function rules()
     {
-
         return [
             'title' => ['required', 'min:3'],
             'slug' => ['required', 'min:3'],

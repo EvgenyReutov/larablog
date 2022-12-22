@@ -2,10 +2,7 @@
 
 @section('content')
 
-    <h2><a href="{{ route('admin.tags.create') }}">create a tag</a> </h2>
-    @if (session()->has('alertType'))
-        <div class="alert alert-{{ session('alertType') }}">{{ session('alertText') }}</div>
-    @endif
+    <h2><a href="{{ route('admin.tags.create') }}">Создать тэг</a></h2>
 <?php
 //
 //

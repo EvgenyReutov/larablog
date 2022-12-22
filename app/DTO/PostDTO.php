@@ -5,9 +5,10 @@ namespace App\DTO;
 use App\Enums\PostStatus;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Http\Request;
 
-class PostDTO {
+class PostDTO implements Arrayable {
 
     public function __construct(
         public int|null $id,
@@ -15,6 +16,8 @@ class PostDTO {
         public $slug,
         public string $text,
         public $author,
+        public $tags,
+        public $created_at,
         public PostStatus $status)
     {
 
@@ -29,7 +32,10 @@ class PostDTO {
     {
         return new static(
             $post->id, $post->title, $post->slug, $post->text,
-            $post->author, $post->status
+            $post->author,
+            $post->tags(),
+            $post->created_at,
+            $post->status
         );
     }
 
@@ -39,12 +45,16 @@ class PostDTO {
 
         return new static(
             null, $request->title, $request->slug, $request->text,
-            $author, PostStatus::from($request->status)
+            $author,
+            $request->tags,
+            null,
+            PostStatus::from($request->status)
         );
     }
 
     public function toEloquentArray(): array
     {
+        //dd('1111');
         return [
             'title' => $this->title,
             'slug' => $this->slug,
@@ -52,6 +62,7 @@ class PostDTO {
             'author_id' => $this->author->id,
             'author' => $this->author,
             'status' => $this->status,
+            'tags' => $this->tags,
             //'title' => $this->title,
         ];
     }
@@ -60,4 +71,17 @@ class PostDTO {
     {
         return $args;
     }*/
+
+    public function toArray()
+    {
+        //dd('1111222');
+        return [
+            'data' => [
+                'id' => $this->id,
+                'title' => $this->title,
+                'status' => $this->status,
+                'author_id' => $this->author->id,
+            ]
+        ];
+    }
 }

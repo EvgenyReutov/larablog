@@ -53,7 +53,7 @@ return [
     'channels' => [
         'stack' => [
             'driver' => 'stack',
-            'channels' => ['single'],
+            'channels' => ['daily'],
             'ignore_exceptions' => false,
         ],
 
@@ -120,13 +120,13 @@ return [
 
         'telegram' => [
             'driver' => 'monolog',
+            'level' => env('LOG_LEVEL', 'debug'),
             'handler' => Monolog\Handler\TelegramBotHandler::class,
             'with' => [
                 'apiKey' => env('TELEGRAM_BOT_TOKEN'),
                 'channel' => env('TELEGRAM_BOT_CHAT_ID'),
             ],
         ],
-
     ],
 
 ];
