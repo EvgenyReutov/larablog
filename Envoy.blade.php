@@ -99,6 +99,8 @@
     else
     echo "# No releases found for purging at this time";
     fi
+    echo "# Reload php8.1-fpm";
+    sudo service php8.1-fpm reload;
 @endtask
 
 @task('run_tests', ['on' => $on])
