@@ -46,17 +46,5 @@ class Post extends BaseModel
         return 'posts' . ($id ? '_' . $id : '') . ' ' . $currentPage;
     }
 
-    /*public function resolveRouteBinding($value, $searchParamName = null)
-    {
-        dump($value);
-        dump($searchParamName);
-        return Post::query()->where(
-            $searchParamName ?? $this->getRouteKeyName(),
-            $value)->first();
-    }
-
-    public function getRouteKeyName()
-    {
-        return 'author_id';
-    }*/
+    
 }

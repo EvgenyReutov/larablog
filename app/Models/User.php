@@ -11,7 +11,7 @@ use Laravel\Sanctum\HasApiTokens;
 use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Watson\Rememberable\Rememberable;
 
-class User extends Authenticatable implements JWTSubject
+class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable, Rememberable;
 
@@ -90,13 +90,4 @@ class User extends Authenticatable implements JWTSubject
         return $result;
     }
 
-    public function getJWTIdentifier()
-    {
-        return $this->getKey();
-    }
-
-    public function getJWTCustomClaims()
-    {
-        return [];
-    }
 }
