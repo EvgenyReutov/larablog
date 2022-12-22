@@ -63,9 +63,12 @@
 
     echo "# Linking storage directory";
     rm -rf {{$dirCurrentRelease}}/storage/app;
+    cd {{$dirCurrentRelease}}/public;
+    ln -nfs {{$dirShared}}/media media;
+
     cd {{$dirCurrentRelease}};
     ln -nfs {{$dirShared}}/storage/app storage/app;
-    ln -nfs {{$dirShared}}/media media;
+
     php artisan storage:link
 
     echo "# Linking .env file";
