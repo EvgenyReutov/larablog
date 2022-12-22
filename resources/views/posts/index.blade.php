@@ -8,9 +8,8 @@
     <h1 class="h1">{{ __('post_list') }} </h1>
 
     @if ($tag)
-        <p>Выбранный тег - <span class="badge rounded-pill bg-secondary">{{ $tag }}</p></p>
+        <span>Выбранный тег - <span class="badge rounded-pill bg-secondary">{{ $tag }}</span></p>
     @endif
-
 
 
     <ul class="icon-list ps-0">
