@@ -54,7 +54,7 @@ class PostDTO implements Arrayable {
 
     public function toEloquentArray(): array
     {
-        //dd('1111');
+
         return [
             'title' => $this->title,
             'slug' => $this->slug,
@@ -67,14 +67,10 @@ class PostDTO implements Arrayable {
         ];
     }
 
-    /*public function __invoke(...$args)
-    {
-        return $args;
-    }*/
 
     public function toArray()
     {
-        //dd('1111222');
+
         return [
             'data' => [
                 'id' => $this->id,

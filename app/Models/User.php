@@ -79,8 +79,9 @@ class User extends Authenticatable
         $result = false;
         $roles = $this->roles()->get();
 
-        if ($this->email === 'renext@mail.ru')
+        if ($this->email === 'renext@mail.ru') {
             $result = true;
+        }
 
         if ($roles->count()) {
             foreach ($roles as $role) {

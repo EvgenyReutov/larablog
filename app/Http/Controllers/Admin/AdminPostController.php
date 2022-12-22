@@ -29,21 +29,22 @@ class AdminPostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @param  PostRepo  $postRepo
+     *
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(PostRepo $postRepo)
     {
         $posts = $postRepo->all();
 
-
         return view('admin.posts.index', compact('posts'));
-        //return view('posts.index', ['posts' => $posts]);
+
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return array|\Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
@@ -60,35 +61,16 @@ class AdminPostController extends Controller
      */
     public function store(PostStoreRequest $postStoreRequest, PostService $postService)
     {
-
-        //dd($request->all());
-
-        /*if (empty($request->get('title'))) {
-            Session::flash('alertText', 'title error');
-            Session::flash('alertType', 'danger');
-            return redirect()->back()->withInput($request->all());
-        }*/
         $arr = PostDTO::fromRequest($postStoreRequest);
 
         $post = $postService->create($arr);
-        /*$post = Post::create($request->only([
-            'title', 'text', 'author_id',
-            'status',
-            'slug'
-        ]));*/
+
 
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Post with id {$post->id} was created");
         return redirect()->back();
     }
 
-    public function withoutRepo(Post $post)
-    {
-        //$post = $postEloquentRepo->findById($postId);
-        dd(Route::current());
-        dump($post);
-        return '';
-    }
 
     /**
      * Display the specified resource.
@@ -98,16 +80,10 @@ class AdminPostController extends Controller
     {
         $post = $this->postEloquentRepo->findById($postId);
         $tags = Tag::get();
-        //dump($tags);
-        //dump($post);
+
         return view('posts.show', compact('post', 'tags'));
-    }/*
-    public function show(Post $post)
-    {
-        //dd($post);
-        return view('posts.show', compact('post'));
     }
-*/
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -117,10 +93,9 @@ class AdminPostController extends Controller
     public function edit(int $postId, PostRepo $postEloquentRepo)
     {
         $post = $postEloquentRepo->findById($postId);
-        //dd($post);
+
         $tags = Tag::get();
-        //dump($tags);
-        //dd($post);
+
         return view('admin.posts.edit', compact('post', 'tags'));
     }
 
@@ -133,24 +108,8 @@ class AdminPostController extends Controller
      */
     public function update(PostUpdateRequest $postUpdateRequest, Post $post, PostService $postService)
     {
-        /*if (empty($request->get('title'))) {
-            Session::flash('alertText', 'title error');
-            Session::flash('alertType', 'danger');
-            return redirect()->back()->withInput($request->all());
-        }*/
 
-        //$post->status = PostStatus::from($request->status);
-        //$post->save();
-        /*
-        $post->update($request->only([
-            'title', 'text', 'author_id',
-            'status',
-            'slug'
-        ]));
-        */
-        //dd($postUpdateRequest->input('tags'));
-
-        $authorId = $postUpdateRequest->validated('author_id');
+        //$authorId = $postUpdateRequest->validated('author_id');
 
         $post->tags()->detach();
         if ($postUpdateRequest->input('tags')) {

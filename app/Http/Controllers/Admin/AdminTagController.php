@@ -73,8 +73,7 @@ class AdminTagController extends Controller
      */
     public function edit(Tag $tag)
     {
-        //$tag = $tagEloquentRepo->findById($tagId);
-        //dd($tag);
+
         return view('admin.tags.edit', compact('tag'));
     }
 
@@ -88,8 +87,8 @@ class AdminTagController extends Controller
     public function update(Request $request, Tag $tag)
     {
         $tag->update($request->only([
-                                        'title', 'code'
-                                    ]));
+                'title', 'code'
+            ]));
 
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Tag with id {$tag->id} was updated");

@@ -38,7 +38,10 @@ Route::get('/posts/tag/{tag}', [PostController::class, 'index'])
 
 Route::get('/', [PostController::class, 'index'])-> name('main');
 
+Route::get('/error', function (){
 
+    throw new \Exception('test exception');
+});
 
 Auth::routes();
 

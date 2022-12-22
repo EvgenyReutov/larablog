@@ -30,13 +30,10 @@ class PostController extends Controller
      */
     public function index(PostRepo $postRepo, string $tag = '')
     {
-        //$this->authorize('viewAny', Post::class);
-        //dd($postRepo);
-        //$posts = $postRepo->all();
         $posts = $postRepo->paginate(10, $tag);
-        //$posts = Post::paginate(5);
+
         return view('posts.index', compact('posts', 'tag'));
-        //return view('posts.index', ['posts' => $posts]);
+
     }
 
 
@@ -44,18 +41,11 @@ class PostController extends Controller
      * Display the specified resource.
      *
      */
-    //public function show(int $postId)
     public function show(string $slug)
     {
-        //$post = $this->postEloquentRepo->findById($postId);
+
         $post = $this->postEloquentRepo->findBy('slug', $slug);
-        //dump($post);
-        return view('posts.show', compact('post'));
-    }/*
-    public function show(Post $post)
-    {
-        //dd($post);
+
         return view('posts.show', compact('post'));
     }
-*/
 }

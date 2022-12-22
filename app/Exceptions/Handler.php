@@ -54,7 +54,7 @@ class Handler extends ExceptionHandler
         if ($this->shouldReport($exception)) {
 
             try {
-                //Log::channel('telegram')->info('hi, exception detected!', compact('exception'));
+                Log::channel('telegram')->info('hi, exception detected!', compact('exception'));
             } catch (\Exception $exception) {
 
             }
