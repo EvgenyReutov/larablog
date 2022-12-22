@@ -50,16 +50,19 @@ class AuthServiceProvider extends ServiceProvider
     protected function gates()
     {
         Gate::define(self::ADMINS, function (User $user) {
+
+            return \Auth::user()->isAdmin();
             return $user->email === 'renext@mail.ru';
         });
 
         Gate::define('admin.posts.create', function (User $user) {
+            dd('2222222111');
             return $user->email === 'renext@mail.ru';
         });
 
         Gate::define('update', function (User $user) {
-            return true;
-            return $user->email === 'renext@mail.ru';
+            return \Auth::user()->isAdmin();
+            //return $user->email === 'renext@mail.ru';
         });
     }
 }

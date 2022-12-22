@@ -7,6 +7,7 @@ use App\Jobs\HandlePostCreated;
 use App\Models\Post;
 use App\Services\Notification\NotificationService;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Cache;
 
 class PostService
 {
@@ -24,6 +25,8 @@ class PostService
             $post->tags()->attach($arr['tags']);
 
         }
+        //чистим кеш
+        Cache::tags(['post_list', 'post_list_nav'])->flush();
 
         //dump($this->notificationService);
         //dump(App::make(NotificationService::class));

@@ -15,9 +15,7 @@ class PostStoreRequest extends FormRequest
      */
     public function authorize()
     {
-        //return \Auth::user()->role === 'admin';
-        return true;
-        return false;
+        return \Auth::user()->isAdmin();
     }
 
     /**

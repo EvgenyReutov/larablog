@@ -41,9 +41,9 @@ class Post extends BaseModel
         return $this->belongsToMany(Tag::class)->using(PostTag::class);
     }
 
-    static function getCacheKey(string $id = ''): string
+    static function getCacheKey(string $id = '', int $currentPage = 1): string
     {
-        return 'posts' . ($id ? '_' . $id : '');
+        return 'posts' . ($id ? '_' . $id : '') . ' ' . $currentPage;
     }
 
     /*public function resolveRouteBinding($value, $searchParamName = null)

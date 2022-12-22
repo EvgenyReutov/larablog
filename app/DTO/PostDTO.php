@@ -47,6 +47,7 @@ class PostDTO implements Arrayable {
             null, $request->title, $request->slug, $request->text,
             $author,
             $request->tags,
+            null,
             PostStatus::from($request->status)
         );
     }

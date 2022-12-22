@@ -21,6 +21,9 @@ class TagPolicy
      */
     public function viewAny(User $user)
     {
+        if (Gate::denies(AuthServiceProvider::ADMINS)) {
+            abort(403, 'You can not create new posts');
+        }
         return true;
     }
 
@@ -44,6 +47,9 @@ class TagPolicy
      */
     public function create(User $user)
     {
+        if (Gate::denies(AuthServiceProvider::ADMINS)) {
+            abort(403, 'You can not create new posts');
+        }
         return true;
     }
 

@@ -14,7 +14,8 @@ class PostEloquentRepo implements PostRepo
     public function findById($id): PostDTO
     {
         $data = Post::find($id);
-
+//dump($data);
+//dd($id);
         return PostDTO::fromModel($data);
     }
 
@@ -43,7 +44,7 @@ class PostEloquentRepo implements PostRepo
         $posts = Cache::tags('post_list')
             ->remember(Post::getCacheKey(), 3600, function(){
                 //dump('cache miss');
-                return Post::get();
+                return Post::query()->orderBy('id','DESC')->get();
             });
         //dump('from cache');
         return $posts->map(PostDTO::fromModel(...))->all();
@@ -51,8 +52,10 @@ class PostEloquentRepo implements PostRepo
 
     public function paginate(int $count, string $tag = '')
     {
-        $posts = Cache::tags('post_list')
-            ->remember(Post::getCacheKey($tag), 3600, function() use ($count, $tag) {
+        $currentPage = request()->get('page', 1);
+
+        $posts = Cache::tags('post_list_nav')
+            ->remember(Post::getCacheKey($tag, $currentPage), 3600, function() use ($count, $tag) {
                 //dump('cache miss');
 
                 if($tag){
@@ -60,9 +63,9 @@ class PostEloquentRepo implements PostRepo
                     //dd($tag);
 
 
-                    $posts = $tagModel->posts()->paginate($count);
+                    $posts = $tagModel->posts()->orderBy('id','DESC')->paginate($count);
                 } else {
-                    $posts = Post::paginate($count);
+                    $posts = Post::orderBy('id','DESC')->paginate($count);
                 }
 
                 return $posts;

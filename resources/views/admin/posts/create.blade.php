@@ -1,8 +1,8 @@
 @extends('layouts.base')
 
 @section('content')
-    <h2>post create form</h2>
 
+    <h2>Создание поста</h2>
     @if ($errors->any())
         <div class="alert alert-danger">
             <ul>
@@ -30,13 +30,13 @@
         <p>
             Tags:<br>
             @foreach ($tags as $tag)
-
+                <label>
                 <input type="checkbox" name="tags[]" value="{{ $tag->id }}"
                        @if (in_array($tag->id, $tagsIds))
                        checked="checked"
                     @endif
 
-                ><label>{{ $tag->title }}</label><br>
+                >{{ $tag->title }}</label><br>
 
             @endforeach
         </p>

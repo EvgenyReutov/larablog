@@ -15,6 +15,7 @@ use App\Repo\Post\PostRepo;
 use App\Repo\Post\PostEloquentRepo;
 use App\Services\PostService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -33,6 +34,7 @@ class AdminPostController extends Controller
     public function index(PostRepo $postRepo)
     {
         $posts = $postRepo->all();
+
 
         return view('admin.posts.index', compact('posts'));
         //return view('posts.index', ['posts' => $posts]);
@@ -96,7 +98,7 @@ class AdminPostController extends Controller
     {
         $post = $this->postEloquentRepo->findById($postId);
         $tags = Tag::get();
-        dump($tags);
+        //dump($tags);
         //dump($post);
         return view('posts.show', compact('post', 'tags'));
     }/*
@@ -117,7 +119,7 @@ class AdminPostController extends Controller
         $post = $postEloquentRepo->findById($postId);
         //dd($post);
         $tags = Tag::get();
-        dump($tags);
+        //dump($tags);
         //dd($post);
         return view('admin.posts.edit', compact('post', 'tags'));
     }
@@ -157,6 +159,8 @@ class AdminPostController extends Controller
 
         $postService->update($post->id, PostDTO::fromRequest($postUpdateRequest));
 
+        Cache::tags(['post_list', 'post_list_nav'])->flush();
+
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Post with id {$post->id} was updated");
         return redirect()->back();
@@ -174,6 +178,9 @@ class AdminPostController extends Controller
         Session::flash('alertType', 'success');
         Session::flash('alertText', "Post with id {$post->id} was deleted");
         $post->delete();
+
+        Cache::tags(['post_list', 'post_list_nav'])->flush();
+
         return redirect()->route('admin.posts.index');
     }
 }
