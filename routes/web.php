@@ -47,10 +47,10 @@ Route::get('/qb/', function (){
 });
 
 
-Route::get('/', function (){
+/*Route::get('/', function (){
     //dd(Auth::check());
     return view('main', ['title' => 'Main Page', 'users' => ['John', 'Mary', 'Ivan']]);
-})-> name('main');
+})-> name('main');*/
 
 Route::get('/user', function (){
 
@@ -108,6 +108,8 @@ Route::get('/posts/tag/{tag}', [PostController::class, 'index'])
         //return redirect('/');
         return response('not found');
     })->name('list_by_tag');
+
+Route::get('/', [PostController::class, 'index'])-> name('main');
 
 
 Route::get('/pp/{post}', [PostController::class, 'withoutRepo'])

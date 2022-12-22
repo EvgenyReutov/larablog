@@ -69,22 +69,6 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
 
-    <!-- Custom styles for this template -->
-   {{-- <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:700' rel='stylesheet' type='text/css'/>
-
-    <link href="/assets/bloggermintcom/shCore.css" rel="stylesheet">
-    <link href="/assets/bloggermintcom/shThemeDefault.css" rel="stylesheet">
-
-    <script src="/assets/bloggermintcom/shCore.js"></script>
-    <script src="/assets/bloggermintcom/shBrushCss.js"></script>
-    <script src="/assets/bloggermintcom/shBrushJScript.js"></script>
-    <script src="/assets/bloggermintcom/shBrushXml.js"></script>
-
-
-
-    <script type='text/javascript'>
-        SyntaxHighlighter.all()
-    </script>--}}
 @endsection
 
 

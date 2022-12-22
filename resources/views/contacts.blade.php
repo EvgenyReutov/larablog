@@ -6,54 +6,22 @@
 
     <main class="container">
         <hr class="col-12 col-md-12">
-        <h2><a href="{{ route('post', ['id'=>2], false) }}">post2</a> </h2>
-        <h2><a href="{{ route('posts.show', ['post'=>2], false) }}">post2</a> </h2>
 
-        <h1>Get started with Bootstrap</h1>
-        <p class="fs-5 col-md-8">Quickly and easily get started with Bootstrap's compiled, production-ready files with this barebones example featuring some basic HTML and helpful links. Download all our examples to get started.</p>
+        <h1 class="h1">About</h1>
+
+        <p class="fs-5 col-md-8">Привет, меня зовут Реутов Евгений, я веб-программист, разрабатываю бэкенды и фронтенды для интернет-сайтов и сервисов. Технологии, используемые в работе: Php/Bitrix/Symfony 2/Laravel; Python/Django; Javascript/NodeJS/Express/VueJs.<br>
+        Email для связи - <a href="mailto:rennext@gmail.com">rennext@gmail.com</a>
+        </p>
 
         <div class="mb-5">
-            <a href="../examples/" class="btn btn-primary btn-lg px-4">Download examples</a>
+            <a href="mailto:rennext@gmail.com" class="btn btn-primary">Написать</a>
         </div>
 
-        <hr class="col-3 col-md-2 mb-5">
-
-        <div class="row g-5">
-            <div class="col-md-6">
-                <h2>Starter projects</h2>
-                <p>Ready to beyond the starter template? Check out these open source projects that you can quickly duplicate to a new GitHub repository.</p>
-                <ul class="icon-list ps-0">
-                    <li class="d-flex align-items-start mb-1"><a href="https://github.com/twbs/bootstrap-npm-starter" rel="noopener" target="_blank">Bootstrap npm starter</a></li>
-                    <li class="text-muted d-flex align-items-start mb-1">Bootstrap Parcel starter (coming soon!)</li>
-                </ul>
-            </div>
-
-            <div class="col-md-6">
-                <h2>Guides</h2>
-                <p>Read more detailed instructions and documentation on using or contributing to Bootstrap.</p>
-                <ul class="icon-list ps-0">
-                    <li class="d-flex align-items-start mb-1"><a href="../getting-started/introduction/">Bootstrap quick start guide</a></li>
-                    <li class="d-flex align-items-start mb-1"><a href="../getting-started/webpack/">Bootstrap Webpack guide</a></li>
-                    <li class="d-flex align-items-start mb-1"><a href="../getting-started/parcel/">Bootstrap Parcel guide</a></li>
-                    <li class="d-flex align-items-start mb-1"><a href="../getting-started/vite/">Bootstrap Vite guide</a></li>
-                    <li class="d-flex align-items-start mb-1"><a href="../getting-started/contribute/">Contributing to Bootstrap</a></li>
-                </ul>
-            </div>
-        </div>
     </main>
 
 @endsection
 
 
-@section('title', $title)
 
-@section('head-end')
-    @parent
-    <link href="/assets/css/starter-template.css" rel="stylesheet">
-@endsection
 
-@section('head-end')
-    @parent
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-@endsection
 

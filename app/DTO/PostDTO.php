@@ -17,6 +17,7 @@ class PostDTO implements Arrayable {
         public string $text,
         public $author,
         public $tags,
+        public $created_at,
         public PostStatus $status)
     {
 
@@ -33,6 +34,7 @@ class PostDTO implements Arrayable {
             $post->id, $post->title, $post->slug, $post->text,
             $post->author,
             $post->tags(),
+            $post->created_at,
             $post->status
         );
     }

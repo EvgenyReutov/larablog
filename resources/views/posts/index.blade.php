@@ -5,18 +5,26 @@
 @endphp
 @section('content')
 
-    <h2>{{ __('post_list') }} </h2>
+    <h1 class="h1">{{ __('post_list') }} </h1>
 
     @if ($tag)
-        <p>Выбранный тег - {{ $tag }}</p>
+        <p>Выбранный тег - <span class="badge rounded-pill bg-secondary">{{ $tag }}</p></p>
     @endif
 
 
-    <ul>
+
+    <ul class="icon-list ps-0">
         @foreach($posts as $post)
-            <li><a href="{{ route('posts.show', ['post' => $post->slug]) }}">{{ $post->title }}</a></li>
+            <li class="d-flex align-items-start mb-1">
+                <a href="{{ route('posts.show', ['post' => $post->slug]) }}">{{ $post->title }}</a>
+            </li>
         @endforeach
     </ul>
 
     {{ $posts->links('../blocks/paginate') }}
+@endsection
+
+@section('head-end')
+    @parent
+    <link href="/assets/css/starter-template.css" rel="stylesheet">
 @endsection
