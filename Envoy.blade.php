@@ -18,8 +18,8 @@
     $releaseRotate = 5;
     $timezone = 'Europe/Moscow';
     $date = new datetime('now', new DateTimeZone($timezone));
-
     $gitBranch = 'EReutov/deploy';
+
     $gitRepository = 'git@github.com:EvgenyReutov/larablog.git';
 
     $on = 'main';
@@ -33,9 +33,18 @@
 
 @task('gitclone', ['on' => 'main'])
     echo "# Gitclone task"
+
     cd ereutov.ru
     mkdir -p {{$dirCurrentRelease}}
-    git clone --depth 1 -b {{$gitBranch}} {{$gitRepository}} {{$dirCurrentRelease}}
+    @if ($branch)
+
+        echo "# Chosen branch {{$branch}}";
+        git clone --depth 1 -b {{$branch}} {{$gitRepository}} {{$dirCurrentRelease}}
+    @else
+        echo "# Chosen branch {{$gitBranch}}";
+        git clone --depth 1 -b {{$gitBranch}} {{$gitRepository}} {{$dirCurrentRelease}}
+    @endif
+
 
     echo "# Repository has been cloned"
 @endtask

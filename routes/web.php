@@ -299,7 +299,7 @@ Route::group(['middleware' => 'auth'], function(){
     ;
 
     Route::get('{locale}/users/{user}', [\App\Http\Controllers\UserController::class, 'show'])
-        ->name('users.show')
+        ->name('users.show_locale')
         ->middleware(
             [
                 //'age',
@@ -308,7 +308,7 @@ Route::group(['middleware' => 'auth'], function(){
     ;
 
     Route::get('{locale}/users', [\App\Http\Controllers\UserController::class, 'index'])
-        ->name('users.show_ru')
+        ->name('users.show_ru_locale')
         ->middleware(
             [
                 'checkLocale',
