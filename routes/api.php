@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:user_token')->get('/user', function (Request $request) {
     return $request->user('user_token');
 });
-
+/*
 function apiRoutesV1(Router $router) {
     $router->apiResource('posts', PostController::class);
 }
@@ -57,7 +57,7 @@ Route::get('/posts/me', function (){
     return $user;
 
 })->middleware('auth:jwt');
-
+*/
 /*Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });*/

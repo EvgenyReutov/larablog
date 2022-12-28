@@ -29,7 +29,7 @@ class AdminTagControllerTest extends TestCase
     }
 
     /**
-     * A basic feature test example.
+     * @group tags1
      *
      * @return void
      */

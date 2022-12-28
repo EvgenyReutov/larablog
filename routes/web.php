@@ -21,6 +21,24 @@ use Illuminate\Support\Facades\Cache;
 |
 */
 
+Route::get('/contacts', function (){
+
+    return view('contacts', ['title' => 'Контакты']);
+})-> name('contacts');
+
+Route::resource('/posts', PostController::class)
+    ->except('destroy', 'store', 'update', 'edit', 'create');
+
+Route::get('/posts/tag/{tag}', [PostController::class, 'index'])
+    ->missing(function (){
+        //return redirect('/');
+        return response('not found');
+    })->name('list_by_tag');
+
+Route::get('/', [PostController::class, 'index'])-> name('main');
+
+//========================================================================
+
 
 Route::get('/template', function (){
     App::setLocale(request()->get('locale'));
@@ -62,10 +80,10 @@ Route::get('/user', function (){
     return view('register', ['title' => 'Регистрация']);
 })-> name('register');*/
 
-Route::get('/contacts', function (){
 
-    return view('contacts', ['title' => 'Контакты']);
-})-> name('contacts');
+
+
+
 Route::view('/page', 'page');
 
 //Route::view('/main', 'main');
@@ -100,16 +118,7 @@ Route::group(
 });
 */
 
-Route::resource('/posts', PostController::class)
-    ->except('destroy', 'store', 'update', 'edit', 'create');
 
-Route::get('/posts/tag/{tag}', [PostController::class, 'index'])
-    ->missing(function (){
-        //return redirect('/');
-        return response('not found');
-    })->name('list_by_tag');
-
-Route::get('/', [PostController::class, 'index'])-> name('main');
 
 
 Route::get('/pp/{post}', [PostController::class, 'withoutRepo'])

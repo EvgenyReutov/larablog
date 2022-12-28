@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminPostController;
+use App\Http\Controllers\Admin\AdminTagController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -15,9 +17,9 @@ Route::get('/111', function (){
 })-> name('main');
 
 
-Route::resource('/tags', \App\Http\Controllers\Admin\AdminTagController::class);
+Route::resource('/tags', AdminTagController::class);
 
-Route::resource('/posts', \App\Http\Controllers\Admin\AdminPostController::class)
+Route::resource('/posts', AdminPostController::class)
     //->middleware('auth')
 ;
 

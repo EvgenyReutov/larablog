@@ -19,6 +19,7 @@ class TagFactory extends Factory
         return [
            // 'title' => $this->faker->unique()->word(4,10),
             'title' => $this->faker->regexify('[A-Za-z0-9]{5,10}'),
+            'code' => $this->faker->slug,
         ];
     }
 }
