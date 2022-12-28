@@ -5,10 +5,7 @@ namespace Tests\Feature;
 // use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-/**
- * @group http
- */
-class ExampleTest extends TestCase
+class PublicSiteTest extends TestCase
 {
     /**
      * A basic test example.
@@ -20,7 +17,7 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
 
         $response->assertStatus(200)
-        ->assertSeeText('rennext@gmail.com')
+            ->assertSeeText('rennext@gmail.com')
             ->assertSee('<a href', false)
         ;
     }

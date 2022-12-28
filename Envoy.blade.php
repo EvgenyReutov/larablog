@@ -63,8 +63,12 @@
 
     echo "# Linking storage directory";
     rm -rf {{$dirCurrentRelease}}/storage/app;
+    cd {{$dirCurrentRelease}}/public;
+    ln -nfs {{$dirShared}}/media media;
+
     cd {{$dirCurrentRelease}};
     ln -nfs {{$dirShared}}/storage/app storage/app;
+
     php artisan storage:link
 
     echo "# Linking .env file";
@@ -95,6 +99,8 @@
     else
     echo "# No releases found for purging at this time";
     fi
+    echo "# Reload php8.1-fpm";
+    sudo service php8.1-fpm reload;
 @endtask
 
 @task('run_tests', ['on' => $on])
