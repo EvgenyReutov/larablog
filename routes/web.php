@@ -215,7 +215,8 @@ Route::get('/i', \App\Http\Controllers\PostShow::class);
 Route::get('/csrf', fn () => csrf_token());
 
 Route::fallback(function (){
-    return 'ok fallback';
+    abort(404, 'Whatever you were looking for, look somewhere else');
+    //return 'ok fallback';
 });
 
 
