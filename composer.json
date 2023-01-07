@@ -14,7 +14,6 @@
         "laravel/ui": "^4.0",
         "php-open-source-saver/jwt-auth": "^2.0",
         "predis/predis": "^2.0",
-        "renext/lara_ascii": "dev-master",
         "renext/lara_currency": "dev-main",
         "watson/rememberable": "^6.0"
     },
@@ -69,15 +68,5 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../lara_ascii"
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/ilya-nurullin/img2ascii.git"
-        }
-    ]
+    "prefer-stable": true
 }
