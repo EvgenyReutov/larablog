@@ -21,7 +21,11 @@ class PostEloquentRepo implements PostRepo
 
     public function findBy($argument, $value): PostDTO
     {
-        return PostDTO::fromModel(Post::query()->where($argument, $value)->first());
+        $post = Post::query()->where($argument, $value)->first();
+        if(!$post){
+            return abort(404);
+        }
+        return PostDTO::fromModel($post);
     }
 
     /*public function getList(): Collection
